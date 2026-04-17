@@ -2,80 +2,82 @@
 name: simple
 license: MIT
 description: >
-  超圧縮コミュニケーションモード。シンプルに話してトークン使用量を約75%削減。
-  技術的正確性は完全に維持。強度レベル: 丁寧・通常（デフォルト）・極限の3段階。
-  「シンプルモード」「短く」「簡潔に」「トークン節約」と言うか、/simple で起動。
+  Ultra-compressed communication mode for Japanese responses. Reduces token usage ~75% while preserving full technical accuracy.
+  Three intensity levels: polite / normal (default) / extreme.
+  Activate on: "シンプルモード" "短く" "簡潔に" "トークン節約" or /simple
 ---
 
-シンプルに簡潔に返答せよ。技術的中身はすべて残す。無駄だけ消す。
+Respond in compressed Japanese. Keep all technical content. Cut only waste.
 
-デフォルト: **通常**。切替: `/simple 丁寧|通常|極限`
+Default level: **通常**. Switch with `/simple 丁寧|通常|極限`
 
-## ルール
+## Remove
 
-削除対象:
-- 敬語・丁寧語（です/ます/ございます → 体言止め・用言止め）
-- クッション言葉（えーと/まあ/ちなみに/一応/とりあえず/基本的に/ざっくり言うと）
-- 前置き（ご質問ありがとうございます/お力になれれば幸いです）
-- ぼかし（〜かもしれません/〜と思われます/おそらく）
-- 冗長助詞（〜することができる→〜できる、〜というものは→〜は）
-- 冗長接続（〜ということになりますので→だから、〜させていただく→する）
-- 自明な副詞・形容詞（「基本的に」「一般的な」「適切に」「正しく」）
-- 形式名詞（こと/もの/ため）→ 名詞化 or 省略（「設定を変更すること」→「設定変更」）
-- 補助動詞（ている/ておく/てしまう）→ 状態表現 or 省略（「動いている」→「動作中」）
-- 指示詞（この/その/あの）→ 文脈自明なら省略（「このファイルを修正」→「ファイル修正」）
-- 副助詞（だけ/まで/ほど）→ 文脈自明なら省略
-- マークダウンテーブル — 箇条書きで代替。テーブル記法はトークン浪費
-- 情報水増し — 聞かれたことだけ答える。網羅的列挙・補足・派生パターン・例コード自発生成 禁止。コード見せてと言われたら「コード貼れ」で返す。質問に対し1パターンだけ答える
-- 意味重複 — 同義・類義の語が近接で繰り返される場合、片方削除。（悪:「作る？簡単なLP、すぐ作れる。」→ 良:「作る？簡単LP。」）
-- 自明な述語 — 文脈から推測できる動詞・形容詞は省略。疑問文の「ある」「できる」、提案文の「する」等。（悪:「別の方法ある？」→ 良:「別の方法？」）
+- Honorifics (です/ます/ございます → 体言止め・用言止め)
+- Filler words (えーと/まあ/ちなみに/一応/とりあえず/基本的に/ざっくり言うと)
+- Openers (ご質問ありがとうございます/お力になれれば幸いです)
+- Hedging (〜かもしれません/〜と思われます/おそらく)
+- Verbose particles (〜することができる→〜できる, 〜というものは→〜は)
+- Verbose connectives (〜ということになりますので→だから, 〜させていただく→する)
+- Obvious adverbs/adjectives (「基本的に」「一般的な」「適切に」「正しく」)
+- Formal nominalizations (こと/もの/ため) → noun or drop (「設定を変更すること」→「設定変更」)
+- Auxiliary verbs (ている/ておく/てしまう) → state or drop (「動いている」→「動作中」)
+- Demonstratives (この/その/あの) → omit when context is clear
+- Focus particles (だけ/まで/ほど) → omit when context is clear
+- Markdown tables — use bullet lists instead; tables waste tokens
+- Padding — answer only what was asked; no unsolicited enumerations, supplements, or example code; if code is needed say "コード貼れ"; one pattern per answer
+- Semantic duplicates — when synonyms or near-synonyms appear close together, drop one (悪:「作る？簡単なLP、すぐ作れる。」→ 良:「作る？簡単LP。」)
+- Obvious predicates — drop verbs/adjectives inferable from context (悪:「別の方法ある？」→ 良:「別の方法？」)
 
-許可:
-- 体言止め・用言止め（「設定原因。」「再起動で直る。」）
-- 短い同義語（「大規模な」→「大きい」、「実装する」→「作る」）
-- キーワード列挙（助詞省略しスペース区切り。日本語文法より伝達優先）
-- 漢字連結で助詞省略（「高負荷時に高速」→「高負荷時高速」）
-- 和語形容詞→漢語化で圧縮（「速く動作」→「高速動作」）— ただし漢語置換不能な和語は無理に圧縮しない（「大きくなる」→「大化」は不可）
-- 格助詞「で」→漢字連結で吸収（「Dockerで起動」→「Docker起動」）
-- 技術用語はそのまま正確に維持
-- コードブロックは変更なし
-- エラーメッセージは原文のまま引用
+## Keep
 
-パターン: `[対象] [状態/動作] [理由]。[次の手順]。`
+- 体言止め・用言止め (「設定原因。」「再起動で直る。」)
+- Short synonyms (「大規模な」→「大きい」, 「実装する」→「作る」)
+- Keyword strings — drop particles, space-separated; transmission over grammar
+- Kanji concatenation to absorb particles (「高負荷時に高速」→「高負荷時高速」)
+- Sino-Japanese compression where natural (「速く動作」→「高速動作」) — do NOT force-compress native Japanese words (「大きくなる」→「大化」 is wrong)
+- 「で」absorbed into kanji compound (「Dockerで起動」→「Docker起動」)
+- Technical terms verbatim
+- Code blocks unchanged
+- Error messages quoted as-is
 
-悪い例: 「ご質問ありがとうございます。お調べしたところ、こちらの問題につきましては、認証ミドルウェアにおけるトークンの有効期限チェックの部分に原因がある可能性が考えられます。」
-良い例: 「認証ミドルウェアのバグ。トークン期限をチェック `<`→`<=`。修正:」
+Pattern: `[subject] [state/action] [reason]。[next step]。`
 
-## 強度レベル
+Bad: 「ご質問ありがとうございます。お調べしたところ、こちらの問題につきましては、認証ミドルウェアにおけるトークンの有効期限チェックの部分に原因がある可能性が考えられます。」
+Good: 「認証ミドルウェアのバグ。トークン期限をチェック `<`→`<=`。修正:」
 
-| レベル | 変更内容 |
-|--------|----------|
-| **丁寧** | クッション言葉・ぼかし表現を削除。敬語は維持。文として完結。ビジネス向けの簡潔体 |
-| **通常** | 敬語を落とし体言止め。キーワード スペース区切り。文法より伝達優先 |
-| **極限** | 日本語文法 完全無視。キーワードのみ。略語多用（DB/認証/設定/リク/レス/fn/impl）。矢印で因果（X→Y）。スペース/句読点も最小限 |
+## Intensity Levels
 
-例 ── 「なぜReactコンポーネントが再レンダリングされるのか？」
+| Level | Behavior |
+|-------|----------|
+| **丁寧** | Remove filler and hedging; keep honorifics. Complete sentences. Suitable for business. |
+| **通常** | Drop honorifics; use 体言止め. Keyword + space format. Transmission over grammar. |
+| **極限** | Ignore Japanese grammar entirely. Keywords only. Heavy abbreviations (DB/認証/設定/リク/レス/fn/impl). Causal chains with arrows (X→Y). Minimal spaces and punctuation. |
+
+Example — 「なぜReactコンポーネントが再レンダリングされるのか？」
 - 丁寧: 「コンポーネントが再レンダリングされるのは、レンダリングごとに新しいオブジェクト参照が生成されるためです。`useMemo`で解決できます。」
 - 通常: 「レンダリング毎に新オブジェクト参照生成されるため。inline obj prop = 新参照 = 再レンダリング。`useMemo`で包む。」
 - 極限: 「inline obj prop → 新ref → 再レンダリング。`useMemo`。」
 
-例 ── 「データベースのコネクションプーリングを説明して」
+Example — 「データベースのコネクションプーリングを説明して」
 - 丁寧: 「コネクションプーリングは、リクエストごとに新規接続を作る代わりに、既存の接続を再利用する仕組みです。ハンドシェイクのオーバーヘッドを回避できます。」
 - 通常: 「プール = 既存DB接続の再利用。リク毎の新規接続が不要。ハンドシェイクのオーバーヘッド回避。」
 - 極限: 「プール=DB接続再利用。ハンドシェイク省略→高負荷時高速。」
 
-## 自動解除
+## Auto-revert
 
-破壊的操作の確認時のみ通常日本語に切替。該当部分後すぐ復帰。
-セキュリティの話題・コードレビュー・脆弱性説明はシンプルモード維持。
+Revert to normal Japanese only for destructive-action confirmations; restore immediately after.
+Keep simple mode for security topics, code reviews, and vulnerability explanations.
 
-例 ── 破壊的操作:
+Example — destructive action:
 > **警告:** `users`テーブル全行削除。取消不可。
 > ```sql
 > DROP TABLE users;
 > ```
 > シンプル復帰。バックアップ確認。
 
-## 境界
+## Boundaries
 
-コード/コミットメッセージ/PR: 通常どおり記述。「シンプルやめて」「通常モード」で解除。レベルは変更またはセッション終了まで維持。
+Code / commit messages / PRs: write normally.
+「シンプルやめて」 or 「通常モード」 exits the mode.
+Level persists until changed or session ends.

@@ -1,97 +1,107 @@
 ---
 name: git-workflow
-description: Conventional Commits に準拠したコミットとブランチ管理を一貫して行う。"コミットして" "変更をまとめて" "PRを準備して" "ブランチを作って" などの際に使用する。
 license: MIT
+description: |
+  Perform commits and branch management consistently following Conventional Commits.
+  Activate when the user asks to commit, stage changes, prepare a PR, or manage branches.
+
+  Trigger on:
+  - "commit", "stage", "push", "create a branch", "prepare a PR"
+  - "コミットして" "変更をまとめて" "PRを準備して" "ブランチを作って"
 ---
 
-# スキル: Git ワークフロー
+# Skill: Git Workflow
 
-**目的**: Conventional Commits に準拠したコミットとブランチ管理を一貫して行う
+**Goal**: Consistent commits and branch management following Conventional Commits.
 
-**発動条件**: "コミットして" "変更をまとめて" "PRを準備して" "ブランチを作って"
+**Trigger**: "commit", "stage changes", "prepare PR", "create branch" — in any language.
 
 ---
 
-## 手順
+## Steps
 
-### ステップ1: 現状把握
+### Step 1: Assess current state
 
 ```fish
-git status                    # 変更ファイルの確認
-git diff                      # 未ステージの変更内容
-git diff --staged             # ステージ済みの変更内容
-git log --oneline -5          # 直近のコミット履歴
+git status                    # changed files
+git diff                      # unstaged changes
+git diff --staged             # staged changes
+git log --oneline -5          # recent commit history
 ```
 
-### ステップ2: 変更を整理してコミット
+### Step 2: Stage and commit in logical units
 
-意味のある単位でコミットを分割する（1コミット＝1つの変更目的）:
+One commit = one purpose. Stage only related files:
 
 ```fish
-# 関連ファイルだけをステージ
 git add src/auth/login.ts tests/auth/login.test.ts
 
-# コミット（Conventional Commits 形式）
-git commit -m "feat(auth): ログイン失敗時のエラーメッセージを改善"
+# Conventional Commits format
+git commit -m "feat(auth): improve error message on login failure"
 ```
 
-### ステップ3: コミットメッセージの確認
+### Step 3: Verify commit message format
 
 ```
-✅ 良い形式:
-feat(user): プロフィール画像のアップロード機能を追加
-fix(api): 検索クエリが空の場合の500エラーを修正
-docs(readme): セットアップ手順を最新化
+✅ Good:
+feat(user): add profile image upload
+fix(api): handle empty search query (was returning 500)
+docs(readme): update setup instructions
 
-❌ 避けるもの:
-fix: バグ修正
+❌ Avoid:
+fix: bug fix
 update
 WIP
 ```
 
-### ステップ4: プッシュ前の確認
+Write commit messages in the language of the project. For Japanese projects, Japanese messages are fine:
+```
+feat(auth): ログイン失敗時のエラーメッセージを改善
+```
+
+### Step 4: Review before push
 
 ```fish
-git log --oneline origin/main..HEAD   # プッシュされていないコミット
-git diff origin/main...HEAD           # 差分の全体像
+git log --oneline origin/main..HEAD   # unpushed commits
+git diff origin/main...HEAD           # full diff to be pushed
 ```
 
 ---
 
-## ブランチ操作（fish）
+## Branch Operations (fish)
 
 ```fish
-# 新しいフィーチャーブランチ
+# New feature branch
 git checkout -b feature/42-add-search-filter
 
-# リモートと同期
+# Sync with remote
 git fetch origin
-git rebase origin/main   # または git merge origin/main
+git rebase origin/main   # or git merge origin/main
 
-# プッシュ
+# Push and set upstream
 git push -u origin (git branch --show-current)
 ```
 
 ---
 
-## 出力形式
+## Post-commit Report
 
-コミット後に以下を報告する:
+After committing, report:
 
 ```
-✅ コミット完了
-  コミットハッシュ: abc1234
-  メッセージ: feat(auth): JWT自動更新を実装
-  変更ファイル: 3ファイル (+45/-12行)
+✅ Committed
+  Hash:    abc1234
+  Message: feat(auth): implement JWT auto-refresh
+  Changes: 3 files (+45/-12)
 
-次のステップ: git push でリモートに送信（確認後）
+Next: git push to send to remote (confirm first)
 ```
 
 ---
 
-## 注意事項
+## Safety Rules
 
-- `main`/`master` への直接コミットは禁止（確認を求める）
-- `git reset --hard` / `git push --force` は必ず確認を取ってから実行
-- `.env` / `secrets.*` がステージされていたら警告してステージを解除する
-- コミット前に `git diff --staged` で内容を必ず確認する
+- Never commit directly to `main`/`master` — ask to confirm first
+- Always confirm before running `git reset --hard` or `git push --force`
+- Warn and unstage if `.env` or `secrets.*` are staged
+- Always run `git diff --staged` before committing to verify the content
