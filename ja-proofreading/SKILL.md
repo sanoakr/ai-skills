@@ -1,5 +1,6 @@
 ---
 name: ja-proofreading
+license: MIT
 description: |
   日本語文章をtextlintで自動校正するスキル。Markdownやテキストファイルをtextlintのプリセットルールでチェックし、問題点を日本語で分かりやすく報告する。
 

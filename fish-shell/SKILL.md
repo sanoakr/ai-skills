@@ -1,6 +1,7 @@
 ---
 name: fish-shell
 description: fish shell の文法・コマンドを正しく使い、bash/zsh との混同を避ける。fish 環境でのコマンド実行・スクリプト作成・シェル設定変更時に使用する。
+license: MIT
 ---
 
 # スキル: fish shell 操作
