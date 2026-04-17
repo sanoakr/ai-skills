@@ -1,162 +1,156 @@
 ---
 name: fish-shell
-description: fish shell の文法・コマンドを正しく使い、bash/zsh との混同を避ける。fish 環境でのコマンド実行・スクリプト作成・シェル設定変更時に使用する。
 license: MIT
+description: |
+  Use fish shell syntax and commands correctly, avoiding bash/zsh confusion.
+  Activate for command execution, script writing, or shell configuration in a fish environment.
+
+  Trigger on:
+  - Running or writing commands/scripts in fish
+  - Editing .fish scripts or config.fish
+  - Questions about fish vs bash/zsh syntax differences
+  - "fish で" "fish shell" "fish スクリプト" "fish の書き方"
 ---
 
-# スキル: fish shell 操作
+# Skill: fish shell
 
-**目的**: fish shell の文法・コマンドを正しく使い、bash/zsh との混同を避ける
+**Goal**: Use fish shell syntax correctly; avoid bash/zsh idioms.
 
-**発動条件**: fish 環境でのコマンド実行・スクリプト作成・シェル設定変更
+**Trigger**: Command execution, script creation, or shell config changes in a fish environment.
 
 ---
 
-## fish と bash/zsh の主な違い
+## Key Differences from bash/zsh
 
-### 変数
+### Variables
 
 ```fish
-# fish（$ なし、set コマンドを使う）
+# fish — no $ on assignment, use set
 set my_var "hello"
 echo $my_var
 
-# スコープ
-set -l local_var "local"      # ローカル（関数内）
-set -g global_var "global"    # グローバル（セッション）
-set -gx export_var "export"   # エクスポート（環境変数）
+# Scopes
+set -l local_var "local"      # local (function scope)
+set -g global_var "global"    # global (session)
+set -gx export_var "export"   # exported (environment variable)
 
-# ❌ bash 構文（fish では動かない）
+# ❌ bash syntax (does not work in fish)
 export MY_VAR="hello"         # → set -gx MY_VAR "hello"
 MY_VAR="hello"                # → set MY_VAR "hello"
 ```
 
-### 条件分岐
+### Conditionals
 
 ```fish
-# fish
 if test $status -eq 0
-    echo "成功"
+    echo "success"
 else if test $status -eq 1
-    echo "エラー1"
+    echo "error 1"
 else
-    echo "その他"
+    echo "other"
 end
 
-# ファイル存在確認
+# File exists
 if test -f "file.txt"
-    echo "ファイルあり"
+    echo "file found"
 end
 
-# コマンド存在確認
+# Command exists
 if command -v node > /dev/null
-    echo "node がインストール済み"
+    echo "node is installed"
 end
 ```
 
-### ループ
+### Loops
 
 ```fish
-# for ループ
+# for loop
 for file in *.fish
     echo $file
 end
 
-# while ループ
+# while loop
 while test $count -lt 10
     set count (math $count + 1)
 end
 
-# コマンド置換（バッククォートではなく括弧）
+# Command substitution — parentheses, not backticks
 set files (ls *.md)
 set count (math 1 + 2)
 ```
 
-### 関数
+### Functions
 
 ```fish
-function greet --description "挨拶する関数"
+function greet --description "greet a user"
     set name $argv[1]
-    echo "こんにちは、$name さん"
+    echo "Hello, $name"
 end
 
-# 関数の永続化（~/.config/fish/functions/ に保存）
+# Persist to ~/.config/fish/functions/
 funcsave greet
 ```
 
-### パイプとリダイレクト
+### Pipes and Redirects
 
 ```fish
-# パイプ（bash と同じ）
+# Pipes — same as bash
 ls | grep ".md"
 
-# リダイレクト（bash と同じ）
+# Redirects — same as bash
 echo "hello" > file.txt
 echo "world" >> file.txt
 
-# エラーリダイレクト
+# Stderr
 command 2>/dev/null
 command 2>&1 | grep "error"
 ```
 
-### エイリアス（abbr を推奨）
+### Aliases (prefer abbr)
 
 ```fish
-# abbr（入力時に展開される、履歴に残る）
+# abbr — expands on input; appears in history as the full command
 abbr --add gs 'git status'
 
-# alias（関数として定義）
+# alias — defined as a function
 alias ll 'ls -la'
 ```
 
 ---
 
-## よく使う fish コマンド
+## Common fish Commands
 
 ```fish
-# 設定ファイルの再読み込み
-source ~/.config/fish/config.fish
-
-# 関数一覧
-functions
-
-# 環境変数一覧
-set -gx
-
-# PATH に追加
-fish_add_path /usr/local/bin
-
-# コマンド履歴
-history
-
-# fish の設定（GUI）
-fish_config
+source ~/.config/fish/config.fish   # reload config
+functions                           # list all functions
+set -gx                             # list exported variables
+fish_add_path /usr/local/bin        # add to PATH
+history                             # command history
+fish_config                         # open config GUI
 ```
 
 ---
 
-## スクリプト作成の注意
+## Script Authoring Notes
 
 ```fish
 #!/usr/bin/env fish
-# ← シェバンは fish を明示する
+# shebang must specify fish explicitly
 
-set -e   # ❌ bash の set -e は動かない
-# fish はデフォルトでエラー時に継続する
-# 明示的なエラーチェックが必要
-
+# set -e does NOT work in fish
+# fish continues on errors by default — check $status explicitly
 set result (some_command)
 if test $status -ne 0
-    echo "エラーが発生しました"
+    echo "error occurred"
     exit 1
 end
 ```
 
 ---
 
-## 注意事項
+## Common Pitfalls
 
-- bash/zsh のスクリプト構文を fish に混入させない
-- `$(command)` → `(command)` に置き換える
-- `&&` / `||` の代わりに `and` / `or` を使う（または `;` と `if` を組み合わせる）
-- 配列のインデックスは **1始まり**（0始まりではない）
+- Do not mix bash/zsh syntax into fish scripts
+- `$(command)` → `(command)`
+- `&&` / `||` → `and` / `or` (or combine `;` with `if`)
+- Arrays are **1-indexed** (not 0-indexed)

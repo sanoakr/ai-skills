@@ -1,21 +1,24 @@
 # ai-skills
 
-Claude Code・Cursor・GitHub Copilot・Codex などの AI ツールで共通利用できる汎用スキル集。
+English | [日本語](./README.ja.md)
 
-## スキル一覧
+A collection of reusable AI skills for Claude Code, Cursor, GitHub Copilot, Codex, and other AI tools.
 
-| スキル | 説明 |
-|--------|------|
-| [fish-shell](./fish-shell/SKILL.md) | fish shell の文法・コマンド参照 |
-| [git-workflow](./git-workflow/SKILL.md) | Conventional Commits に準拠したコミット手順 |
-| [ja-proofreading](./ja-proofreading/SKILL.md) | textlint による日本語文章の自動校正 |
-| [simple](./simple/SKILL.md) | 超圧縮コミュニケーションモード |
+## Skills
 
-## セットアップ
+| Skill | Description |
+|-------|-------------|
+| [fish-shell](./fish-shell/SKILL.md) | fish shell syntax and command reference |
+| [git-workflow](./git-workflow/SKILL.md) | Commit and branch management following Conventional Commits |
+| [ja-proofreading](./ja-proofreading/SKILL.md) | Japanese text proofreading with textlint |
+| [simple](./simple/SKILL.md) | Ultra-compressed Japanese communication mode |
+| [gmail-persona](./gmail-persona/SKILL.md) | Build a persona knowledge base from Gmail history for Q&A and email drafting |
 
-[GitHub CLI](https://cli.github.com/) の `gh skill` コマンドを使用する。
+## Setup
 
-### ユーザースコープ（全プロジェクトで利用）
+Uses the `gh skill` command from [GitHub CLI](https://cli.github.com/).
+
+### User scope (available in all projects)
 
 ```fish
 # Claude Code
@@ -31,47 +34,48 @@ gh skill install sanoakr/ai-skills --agent cursor --scope user
 gh skill install sanoakr/ai-skills --agent codex --scope user
 ```
 
-### プロジェクトスコープ（カレントリポジトリのみ）
+### Project scope (current repository only)
 
 ```fish
 gh skill install sanoakr/ai-skills --agent claude-code
 ```
 
-### 特定スキルのみインストール
+### Install a specific skill only
 
 ```fish
 gh skill install sanoakr/ai-skills fish-shell --agent claude-code --scope user
 ```
 
-## アップデート
+## Update
 
 ```fish
 gh skill update --all
 ```
 
-## スキルの形式
+## Skill Format
 
 ```
 ai-skills/
-└── <スキル名>/
-    ├── SKILL.md          # スキル定義（YAML frontmatter + Markdown）
-    └── scripts/          # 補助スクリプト（オプション）
+└── <skill-name>/
+    ├── SKILL.md          # Skill definition (YAML frontmatter + Markdown)
+    └── scripts/          # Helper scripts (optional)
 ```
 
-`SKILL.md` の frontmatter:
+`SKILL.md` frontmatter:
 
 ```yaml
 ---
-name: スキル名
-description: スキルの説明と発動条件
+name: skill-name
+description: Description and activation conditions (include trigger phrases in all target languages)
+license: MIT
 ---
 ```
 
-本文は Markdown で記述し、各ツールでそのまま利用される。
+The body is plain Markdown and is consumed as-is by each AI tool.
 
-## スキルの追加・公開
+## Adding a Skill
 
-1. `SKILL_TEMPLATE.md` を参考に `<スキル名>/SKILL.md` を作成する
-2. コミット・プッシュする
-3. 公開検証: `gh skill publish --dry-run`
-4. 各ツールで `gh skill update --all` を実行して反映する
+1. Use `SKILL_TEMPLATE.md` as a starting point; create `<skill-name>/SKILL.md`
+2. Commit and push
+3. Dry-run publish: `gh skill publish --dry-run`
+4. Update in each tool: `gh skill update --all`
