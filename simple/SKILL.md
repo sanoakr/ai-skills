@@ -2,7 +2,7 @@
 name: simple
 license: MIT
 description: >
-  Ultra-compressed communication mode for Japanese responses. Reduces token usage ~75% while preserving full technical accuracy.
+  compressed communication mode for Japanese responses. Reduces token usage while preserving full technical accuracy.
   Three intensity levels: polite / normal (default) / extreme.
   Activate on: "シンプルモード" "短く" "簡潔に" "トークン節約" or /simple
 ---
