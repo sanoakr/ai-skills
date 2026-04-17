@@ -1,6 +1,7 @@
 ---
 name: git-workflow
 description: Conventional Commits に準拠したコミットとブランチ管理を一貫して行う。"コミットして" "変更をまとめて" "PRを準備して" "ブランチを作って" などの際に使用する。
+license: MIT
 ---
 
 # スキル: Git ワークフロー
