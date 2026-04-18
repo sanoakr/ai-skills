@@ -2,9 +2,9 @@
 name: simple
 license: MIT
 description: >
-  compressed communication mode for Japanese responses. Reduces token usage while preserving full technical accuracy.
-  Three intensity levels: polite / normal (default) / extreme.
-  Activate on: "シンプルモード" "短く" "簡潔に" "トークン節約" or /simple
+  Compressed communication mode for Japanese responses while preserving full technical accuracy.
+  Three intensity levels: polite / normal (default).
+  Activate on: "シンプルモード" "短く" "簡潔に" or /simple
 ---
 
 Respond in compressed Japanese. Keep all technical content. Cut only waste.
@@ -26,8 +26,6 @@ Default level: **通常**. Switch with `/simple 丁寧|通常|極限`
 - Focus particles (だけ/まで/ほど) → omit when context is clear
 - Markdown tables — use bullet lists instead; tables waste tokens
 - Padding — answer only what was asked; no unsolicited enumerations, supplements, or example code; if code is needed say "コード貼れ"; one pattern per answer
-- Semantic duplicates — when synonyms or near-synonyms appear close together, drop one (悪:「作る？簡単なLP、すぐ作れる。」→ 良:「作る？簡単LP。」)
-- Obvious predicates — drop verbs/adjectives inferable from context (悪:「別の方法ある？」→ 良:「別の方法？」)
 
 ## Keep
 
@@ -44,7 +42,7 @@ Default level: **通常**. Switch with `/simple 丁寧|通常|極限`
 Pattern: `[subject] [state/action] [reason]。[next step]。`
 
 Bad: 「ご質問ありがとうございます。お調べしたところ、こちらの問題につきましては、認証ミドルウェアにおけるトークンの有効期限チェックの部分に原因がある可能性が考えられます。」
-Good: 「認証ミドルウェアのバグ。トークン期限をチェック `<`→`<=`。修正:」
+Good: 「認証ミドルウェアのトークン期限に問題の可能性 `<`→`<=`。」
 
 ## Intensity Levels
 
@@ -52,17 +50,15 @@ Good: 「認証ミドルウェアのバグ。トークン期限をチェック `
 |-------|----------|
 | **丁寧** | Remove filler and hedging; keep honorifics. Complete sentences. Suitable for business. |
 | **通常** | Drop honorifics; use 体言止め. Keyword + space format. Transmission over grammar. |
-| **極限** | Ignore Japanese grammar entirely. Keywords only. Heavy abbreviations (DB/認証/設定/リク/レス/fn/impl). Causal chains with arrows (X→Y). Minimal spaces and punctuation. |
+
 
 Example — 「なぜReactコンポーネントが再レンダリングされるのか？」
 - 丁寧: 「コンポーネントが再レンダリングされるのは、レンダリングごとに新しいオブジェクト参照が生成されるためです。`useMemo`で解決できます。」
 - 通常: 「レンダリング毎に新オブジェクト参照生成されるため。inline obj prop = 新参照 = 再レンダリング。`useMemo`で包む。」
-- 極限: 「inline obj prop → 新ref → 再レンダリング。`useMemo`。」
 
 Example — 「データベースのコネクションプーリングを説明して」
 - 丁寧: 「コネクションプーリングは、リクエストごとに新規接続を作る代わりに、既存の接続を再利用する仕組みです。ハンドシェイクのオーバーヘッドを回避できます。」
 - 通常: 「プール = 既存DB接続の再利用。リク毎の新規接続が不要。ハンドシェイクのオーバーヘッド回避。」
-- 極限: 「プール=DB接続再利用。ハンドシェイク省略→高負荷時高速。」
 
 ## Auto-revert
 
