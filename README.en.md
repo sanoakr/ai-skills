@@ -6,20 +6,37 @@ A collection of reusable AI skills for Claude Code, Cursor, GitHub Copilot, Code
 
 ## Skills
 
+### This Repository
+
 | Skill | Description |
 |-------|-------------|
-| [bytesagain1/fish](https://github.com/openclaw/skills/tree/main/skills/bytesagain1/fish) (external) | fish shell syntax and command reference |
-| [git-commit](https://github.com/github/awesome-copilot/tree/main/skills/git-commit) (external) | Commit and branch management following Conventional Commits |
-| [azure-deploy](https://github.com/microsoft/azure-skills) (external) | Deploy to Azure |
-| [azure-cost](https://github.com/microsoft/azure-skills) (external) | Azure cost analysis |
-| [azure-resource-lookup](https://github.com/microsoft/azure-skills) (external) | Azure resource lookup |
-| [azure-rbac](https://github.com/microsoft/azure-skills) (external) | Azure user/role management |
-| [azure-ai](https://github.com/microsoft/azure-skills) (external) | Azure AI Services |
-| [microsoft-foundry](https://github.com/microsoft/azure-skills) (external) | Azure AI Foundry |
-| [deploy](https://github.com/awslabs/agent-plugins) (external) | Deploy to AWS |
 | [ja-proofreading](./ja-proofreading/SKILL.md) | Japanese text proofreading with textlint |
-| [simple](./simple/SKILL.md) | Ultra-compressed Japanese communication mode |
+| [simple](./simple/SKILL.md) | Compressed Japanese output mode |
 | [gmail-persona](./gmail-persona/SKILL.md) | Build a persona knowledge base from Gmail history for Q&A and email drafting |
+
+### External Skills — General
+
+| Skill | Repository | Description |
+|-------|-----------|-------------|
+| [bytesagain1/fish](https://github.com/openclaw/skills/tree/main/skills/bytesagain1/fish) | openclaw/skills | fish shell syntax and command reference |
+| [git-commit](https://github.com/github/awesome-copilot/tree/main/skills/git-commit) | github/awesome-copilot | Commit and branch management following Conventional Commits |
+
+### External Skills — Azure
+
+| Skill | Description |
+|-------|-------------|
+| [azure-deploy](https://github.com/microsoft/azure-skills) | Deploy to Azure |
+| [azure-cost](https://github.com/microsoft/azure-skills) | Azure cost analysis |
+| [azure-resource-lookup](https://github.com/microsoft/azure-skills) | Azure resource lookup |
+| [azure-rbac](https://github.com/microsoft/azure-skills) | Azure user/role management |
+| [azure-ai](https://github.com/microsoft/azure-skills) | Azure AI Services |
+| [microsoft-foundry](https://github.com/microsoft/azure-skills) | Azure AI Foundry |
+
+### External Skills — AWS
+
+| Skill | Description |
+|-------|-------------|
+| [deploy](https://github.com/awslabs/agent-plugins) | Deploy to AWS |
 
 ## Setup
 

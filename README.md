@@ -6,20 +6,37 @@ Claude Code・Cursor・GitHub Copilot・Codex などの AI ツールで共通利
 
 ## スキル一覧
 
+### このリポジトリのスキル
+
 | スキル | 説明 |
 |--------|------|
-| [bytesagain1/fish](https://github.com/openclaw/skills/tree/main/skills/bytesagain1/fish) (外部) | fish shell の文法・コマンド参照 |
-| [git-commit](https://github.com/github/awesome-copilot/tree/main/skills/git-commit) (外部) | Conventional Commits に準拠したコミット手順 |
-| [azure-deploy](https://github.com/microsoft/azure-skills) (外部) | Azure へのデプロイ |
-| [azure-cost](https://github.com/microsoft/azure-skills) (外部) | Azure コスト確認 |
-| [azure-resource-lookup](https://github.com/microsoft/azure-skills) (外部) | Azure リソース確認 |
-| [azure-rbac](https://github.com/microsoft/azure-skills) (外部) | Azure ユーザー/ロール管理 |
-| [azure-ai](https://github.com/microsoft/azure-skills) (外部) | Azure AI Services |
-| [microsoft-foundry](https://github.com/microsoft/azure-skills) (外部) | Azure AI Foundry |
-| [deploy](https://github.com/awslabs/agent-plugins) (外部) | AWS へのデプロイ |
 | [ja-proofreading](./ja-proofreading/SKILL.md) | textlint による日本語文章の自動校正 |
 | [simple](./simple/SKILL.md) | 日本語圧縮出力モード |
 | [gmail-persona](./gmail-persona/SKILL.md) | Gmail 履歴からペルソナ知識ベースを構築し、Q&A・メール下書きに活用 |
+
+### 外部スキル — 汎用
+
+| スキル | リポジトリ | 説明 |
+|--------|-----------|------|
+| [bytesagain1/fish](https://github.com/openclaw/skills/tree/main/skills/bytesagain1/fish) | openclaw/skills | fish shell の文法・コマンド参照 |
+| [git-commit](https://github.com/github/awesome-copilot/tree/main/skills/git-commit) | github/awesome-copilot | Conventional Commits に準拠したコミット手順 |
+
+### 外部スキル — Azure
+
+| スキル | 説明 |
+|--------|------|
+| [azure-deploy](https://github.com/microsoft/azure-skills) | Azure へのデプロイ |
+| [azure-cost](https://github.com/microsoft/azure-skills) | Azure コスト確認 |
+| [azure-resource-lookup](https://github.com/microsoft/azure-skills) | Azure リソース確認 |
+| [azure-rbac](https://github.com/microsoft/azure-skills) | Azure ユーザー/ロール管理 |
+| [azure-ai](https://github.com/microsoft/azure-skills) | Azure AI Services |
+| [microsoft-foundry](https://github.com/microsoft/azure-skills) | Azure AI Foundry |
+
+### 外部スキル — AWS
+
+| スキル | 説明 |
+|--------|------|
+| [deploy](https://github.com/awslabs/agent-plugins) | AWS へのデプロイ |
 
 ## セットアップ
 
