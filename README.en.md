@@ -9,7 +9,7 @@ A collection of reusable AI skills for Claude Code, Cursor, GitHub Copilot, Code
 | Skill | Description |
 |-------|-------------|
 | [fish-shell](./fish-shell/SKILL.md) | fish shell syntax and command reference |
-| [git-workflow](./git-workflow/SKILL.md) | Commit and branch management following Conventional Commits |
+| [git-commit](https://github.com/github/awesome-copilot/tree/main/skills/git-commit) (external) | Commit and branch management following Conventional Commits |
 | [ja-proofreading](./ja-proofreading/SKILL.md) | Japanese text proofreading with textlint |
 | [simple](./simple/SKILL.md) | Ultra-compressed Japanese communication mode |
 | [gmail-persona](./gmail-persona/SKILL.md) | Build a persona knowledge base from Gmail history for Q&A and email drafting |
