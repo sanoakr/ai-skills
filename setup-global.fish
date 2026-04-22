@@ -10,7 +10,7 @@ set SCOPE user
 set external_skills \
     "github/awesome-copilot" "git-commit" \
     "github/awesome-copilot" "meeting-minutes" \
-    "openclaw/skills"        "bytesagain1/fish" \
+    "openclaw/skills"        "skills/bytesagain1/fish" \
     "microsoft/azure-skills" "azure-deploy" \
     "microsoft/azure-skills" "azure-cost" \
     "microsoft/azure-skills" "azure-resource-lookup" \
