@@ -20,6 +20,7 @@ A collection of reusable AI skills for Claude Code, Cursor, GitHub Copilot, Code
 |-------|-----------|-------------|
 | [bytesagain1/fish](https://github.com/openclaw/skills/tree/main/skills/bytesagain1/fish) | openclaw/skills | fish shell syntax and command reference |
 | [git-commit](https://github.com/github/awesome-copilot/tree/main/skills/git-commit) | github/awesome-copilot | Commit and branch management following Conventional Commits |
+| [meeting-minutes](https://github.com/github/awesome-copilot/tree/main/skills/meeting-minutes) | github/awesome-copilot | Meeting minutes for short internal meetings |
 
 ### External Skills — Azure
 

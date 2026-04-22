@@ -20,6 +20,7 @@ Claude Code・Cursor・GitHub Copilot・Codex などの AI ツールで共通利
 |--------|-----------|------|
 | [bytesagain1/fish](https://github.com/openclaw/skills/tree/main/skills/bytesagain1/fish) | openclaw/skills | fish shell の文法・コマンド参照 |
 | [git-commit](https://github.com/github/awesome-copilot/tree/main/skills/git-commit) | github/awesome-copilot | Conventional Commits に準拠したコミット手順 |
+| [meeting-minutes](https://github.com/github/awesome-copilot/tree/main/skills/meeting-minutes) | github/awesome-copilot | 社内短時間ミーティングの議事録作成 |
 
 ### 外部スキル — Azure
 
