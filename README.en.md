@@ -39,6 +39,14 @@ A collection of reusable AI skills for Claude Code, Cursor, GitHub Copilot, Code
 |-------|-------------|
 | [deploy](https://github.com/awslabs/agent-plugins) | Deploy to AWS |
 
+### External Skills — Pending (gh skill unsupported)
+
+> These repositories use non-standard directory structures and cannot be installed via `gh skill` at this time. Issues have been filed.
+
+| Repository | Description |
+|-----------|-------------|
+| [K-Dense-AI/scientific-agent-skills](https://github.com/K-Dense-AI/scientific-agent-skills) | Scientific research skills (paper writing, literature search, bioinformatics, drug discovery, quantum computing, and 120+ more) |
+
 ## Setup
 
 Requires [GitHub CLI](https://cli.github.com/).

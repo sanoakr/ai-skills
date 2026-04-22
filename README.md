@@ -39,6 +39,14 @@ Claude Code・Cursor・GitHub Copilot・Codex などの AI ツールで共通利
 |--------|------|
 | [deploy](https://github.com/awslabs/agent-plugins) | AWS へのデプロイ |
 
+### 外部スキル — 対応待ち（gh skill 非対応）
+
+> これらのリポジトリは `gh skill` の非標準ディレクトリ構造のため、現時点ではインストール不可。対応 Issue 提出済み。
+
+| リポジトリ | 説明 |
+|-----------|------|
+| [K-Dense-AI/scientific-agent-skills](https://github.com/K-Dense-AI/scientific-agent-skills) | 科学研究向けスキル集（論文執筆・文献検索・バイオインフォ・創薬・量子計算など 120+ スキル） |
+
 ## セットアップ
 
 [GitHub CLI](https://cli.github.com/) が必要。
