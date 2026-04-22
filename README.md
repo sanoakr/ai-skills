@@ -16,35 +16,15 @@ Claude Code・Cursor・GitHub Copilot・Codex などの AI ツールで共通利
 
 ## セットアップ
 
-[GitHub CLI](https://cli.github.com/) の `gh skill` コマンドを使用する。
-
-### ユーザースコープ（全プロジェクトで利用）
+[GitHub CLI](https://cli.github.com/) が必要。
 
 ```fish
-# Claude Code
-gh skill install sanoakr/ai-skills --agent claude-code --scope user
-
-# GitHub Copilot
-gh skill install sanoakr/ai-skills --agent github-copilot --scope user
-
-# Cursor
-gh skill install sanoakr/ai-skills --agent cursor --scope user
-
-# Codex
-gh skill install sanoakr/ai-skills --agent codex --scope user
+git clone https://github.com/sanoakr/ai-skills.git
+cd ai-skills
+./setup-global.fish
 ```
 
-### プロジェクトスコープ（カレントリポジトリのみ）
-
-```fish
-gh skill install sanoakr/ai-skills --agent claude-code
-```
-
-### 特定スキルのみインストール
-
-```fish
-gh skill install sanoakr/ai-skills fish-shell --agent claude-code --scope user
-```
+Claude Code・Codex・GitHub Copilot にグローバルスコープで全スキルをインストールする。
 
 ## アップデート
 

@@ -16,35 +16,15 @@ A collection of reusable AI skills for Claude Code, Cursor, GitHub Copilot, Code
 
 ## Setup
 
-Uses the `gh skill` command from [GitHub CLI](https://cli.github.com/).
-
-### User scope (available in all projects)
+Requires [GitHub CLI](https://cli.github.com/).
 
 ```fish
-# Claude Code
-gh skill install sanoakr/ai-skills --agent claude-code --scope user
-
-# GitHub Copilot
-gh skill install sanoakr/ai-skills --agent github-copilot --scope user
-
-# Cursor
-gh skill install sanoakr/ai-skills --agent cursor --scope user
-
-# Codex
-gh skill install sanoakr/ai-skills --agent codex --scope user
+git clone https://github.com/sanoakr/ai-skills.git
+cd ai-skills
+./setup-global.fish
 ```
 
-### Project scope (current repository only)
-
-```fish
-gh skill install sanoakr/ai-skills --agent claude-code
-```
-
-### Install a specific skill only
-
-```fish
-gh skill install sanoakr/ai-skills fish-shell --agent claude-code --scope user
-```
+Installs all skills globally for Claude Code, Codex, and GitHub Copilot.
 
 ## Update
 
