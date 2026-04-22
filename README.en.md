@@ -8,8 +8,15 @@ A collection of reusable AI skills for Claude Code, Cursor, GitHub Copilot, Code
 
 | Skill | Description |
 |-------|-------------|
-| [fish-shell](./fish-shell/SKILL.md) | fish shell syntax and command reference |
+| [bytesagain1/fish](https://github.com/openclaw/skills/tree/main/skills/bytesagain1/fish) (external) | fish shell syntax and command reference |
 | [git-commit](https://github.com/github/awesome-copilot/tree/main/skills/git-commit) (external) | Commit and branch management following Conventional Commits |
+| [azure-deploy](https://github.com/microsoft/azure-skills) (external) | Deploy to Azure |
+| [azure-cost](https://github.com/microsoft/azure-skills) (external) | Azure cost analysis |
+| [azure-resource-lookup](https://github.com/microsoft/azure-skills) (external) | Azure resource lookup |
+| [azure-rbac](https://github.com/microsoft/azure-skills) (external) | Azure user/role management |
+| [azure-ai](https://github.com/microsoft/azure-skills) (external) | Azure AI Services |
+| [microsoft-foundry](https://github.com/microsoft/azure-skills) (external) | Azure AI Foundry |
+| [deploy](https://github.com/awslabs/agent-plugins) (external) | Deploy to AWS |
 | [ja-proofreading](./ja-proofreading/SKILL.md) | Japanese text proofreading with textlint |
 | [simple](./simple/SKILL.md) | Ultra-compressed Japanese communication mode |
 | [gmail-persona](./gmail-persona/SKILL.md) | Build a persona knowledge base from Gmail history for Q&A and email drafting |

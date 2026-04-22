@@ -8,7 +8,15 @@ set SCOPE user
 
 # External skills: {repo} {skill-name}
 set external_skills \
-    "github/awesome-copilot" "git-commit"
+    "github/awesome-copilot" "git-commit" \
+    "openclaw/skills"        "bytesagain1/fish" \
+    "microsoft/azure-skills" "azure-deploy" \
+    "microsoft/azure-skills" "azure-cost" \
+    "microsoft/azure-skills" "azure-resource-lookup" \
+    "microsoft/azure-skills" "azure-rbac" \
+    "microsoft/azure-skills" "azure-ai" \
+    "microsoft/azure-skills" "microsoft-foundry" \
+    "awslabs/agent-plugins"  "deploy"
 
 # Require gh CLI
 if not command -q gh
@@ -25,7 +33,7 @@ for dir in $REPO_DIR/*/
 end
 
 echo "Local skills:    $local_skills"
-echo "External skills: git-commit (github/awesome-copilot)"
+echo "External skills: git-commit, bytesagain1/fish, azure-deploy, azure-cost, azure-resource-lookup, azure-rbac, azure-ai, microsoft-foundry, deploy"
 echo "Agents:          $AGENTS"
 echo "Scope:           $SCOPE"
 echo ""
