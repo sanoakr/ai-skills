@@ -31,7 +31,7 @@ Detect and report issues in Japanese text using textlint with Japanese preset ru
 
 - Text pasted in conversation → write to a temp file, then process
 - File path given → use that file directly
-- Uploaded file → read from `/sessions/.../mnt/uploads/`
+- Uploaded file → read from `/mnt/user-data/uploads/`
 
 ### Step 2: Set up environment
 
@@ -41,16 +41,19 @@ Use `scripts/setup_textlint.sh`. Check for an existing setup at `/tmp/textlint-j
 ls /tmp/textlint-ja/node_modules/.bin/textlint 2>/dev/null || bash <skill-dir>/scripts/setup_textlint.sh
 ```
 
-### Step 3: Run textlint
+### Step 3: Run textlint and format output
 
 ```bash
 cd /tmp/textlint-ja
-./node_modules/.bin/textlint --config .textlintrc.json --format json <target-file>
+./node_modules/.bin/textlint --config .textlintrc.json --format json <target-file> \
+  | python3 <skill-dir>/scripts/format_results.py -
 ```
 
-### Step 4: Format and report (in Japanese)
+If `python3` is unavailable, save JSON to a temp file and parse manually.
 
-Parse the JSON output and report in the following format:
+### Step 4: Report (in Japanese)
+
+Present the formatted output from `format_results.py` as-is. If the script was not available, report in the following format:
 
 ```
 ## 校正結果: <ファイル名>
