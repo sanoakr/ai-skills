@@ -41,8 +41,7 @@ set external_skills \
     "Imbad0202/academic-research-skills" "academic-pipeline"
 
 # Repo-level installs: repos with SKILL.md at root (no skill-name argument)
-set repo_installs \
-    "ndpvt-web/latex-document-skill"
+set repo_installs
 
 # Require gh CLI
 if not command -q gh
@@ -60,7 +59,7 @@ end
 
 echo "Local skills:    $local_skills"
 echo "External skills: git-workflow, meeting-minutes, cmux, anthropics/skills (17), azure-* (6), deploy, academic-* (4)"
-echo "Repo installs:   latex-document-skill"
+echo "Repo installs:   (none)"
 echo "Agents:          $AGENTS"
 echo "Scope:           $SCOPE"
 echo ""
