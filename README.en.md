@@ -116,6 +116,7 @@ Directories containing `SKILL.md` are automatically detected. No entry in `skill
 |-----------|-------------|
 | [K-Dense-AI/scientific-agent-skills](https://github.com/K-Dense-AI/scientific-agent-skills) | Scientific research skills (paper writing, literature search, bioinformatics, drug discovery, quantum computing, and 120+ more) |
 | [Orchestra-Research/AI-Research-SKILLs](https://github.com/Orchestra-Research/AI-Research-SKILLs) | AI research skills (model architecture, fine-tuning, distributed training, inference, safety, and 87 more) |
+| [ndpvt-web/latex-document-skill](https://github.com/ndpvt-web/latex-document-skill) | Generate publication-ready LaTeX PDFs from handwritten notes, scans, or raw data (27 templates, OCR support) |
 
 ## File Structure
 
