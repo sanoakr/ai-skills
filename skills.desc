@@ -1,0 +1,48 @@
+# スキルの日本語説明（skill-name=説明）
+# list コマンドで表示される。説明がなければ空欄になる。
+
+# --- ローカルスキル ---
+ja-proofreading=textlintによる日本語文章の自動校正
+simple=日本語圧縮出力モード
+gmail-persona=Gmail履歴からペルソナ知識ベースを構築し、Q&A・メール下書きに活用
+
+# --- Git/Productivity ---
+git-workflow=Git Flow・GitHub Flow・trunk-based・CI/CD対応の包括的Gitワークフロー
+meeting-minutes=社内短時間ミーティングの議事録作成
+cmux=cmux上で複数のClaude Codeセッションを並列オーケストレーション
+
+# --- Anthropic 公式 ---
+algorithmic-art=アルゴリズム・ジェネラティブアート生成
+brand-guidelines=ブランドガイドライン策定・維持
+canvas-design=キャンバスベースのデザイン制作
+claude-api=Claude API統合・サンプルコード（多言語対応）
+doc-coauthoring=ドキュメントの共同執筆・コラボレーション
+docx=Word (.docx) ドキュメントの生成・操作
+frontend-design=フロントエンド・UIデザイン
+internal-comms=社内コミュニケーション・文書自動化
+mcp-builder=MCPサーバー開発・構築
+pdf=PDFドキュメントの生成・操作
+pptx=PowerPoint (.pptx) プレゼンテーション生成
+skill-creator=新スキルの作成・テンプレート活用
+slack-gif-creator=Slack用GIF作成
+theme-factory=テーマ・デザインシステム生成
+web-artifacts-builder=Webアーティファクト構築
+webapp-testing=Webアプリケーションテスト自動化
+xlsx=Excel (.xlsx) スプレッドシート生成・操作
+
+# --- Microsoft Azure ---
+azure-deploy=Azureへのデプロイ
+azure-cost=Azureコスト確認
+azure-resource-lookup=Azureリソース確認
+azure-rbac=Azureユーザー/ロール管理
+azure-ai=Azure AI Services
+microsoft-foundry=Azure AI Foundry
+
+# --- AWS ---
+deploy=AWSへのデプロイ
+
+# --- Academic ---
+deep-research=13エージェントによる文献レビュー・システマティックレビュー・ファクトチェック
+academic-paper=12エージェントによる論文執筆（LaTeX/DOCX/PDF・二言語アブストラクト対応）
+academic-paper-reviewer=7エージェントによるピアレビューシミュレーター（査読・編集委員長判定）
+academic-pipeline=研究→執筆→整合性チェック→査読→改稿→最終化の全工程オーケストレーター
