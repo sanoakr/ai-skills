@@ -3,10 +3,44 @@
 [日本語](./README.md) | English
 
 A collection of reusable AI skills for Claude Code, Cursor, GitHub Copilot, Codex, and other AI tools.
+Share skill configurations across multiple PCs via `skills.conf`.
+
+## Setup
+
+Requires [GitHub CLI](https://cli.github.com/).
+
+```fish
+git clone https://github.com/sanoakr/ai-skills.git
+cd ai-skills
+./setup-global.fish
+```
+
+Installs all skills globally for Claude Code, Codex, and GitHub Copilot.
+
+## Usage
+
+```fish
+# Install/update all skills
+./setup-global.fish
+
+# List all skills with descriptions
+./setup-global.fish list
+
+# Add an external skill (install → commit → push)
+./setup-global.fish add <skill-name>@<owner/repo>
+
+# Remove an external skill (commit → push)
+./setup-global.fish remove <skill-name>
+
+# Pull from remote and sync all skills (for initial setup on another PC)
+./setup-global.fish sync
+```
 
 ## Skills
 
-### This Repository
+### Local Skills (auto-discovered)
+
+Directories containing `SKILL.md` are automatically detected. No entry in `skills.conf` needed.
 
 | Skill | Description |
 |-------|-------------|
@@ -43,7 +77,6 @@ A collection of reusable AI skills for Claude Code, Cursor, GitHub Copilot, Code
 | [git-workflow](https://github.com/netresearch/git-workflow-skill) | netresearch/git-workflow-skill | Comprehensive Git workflows: Git Flow, GitHub Flow, trunk-based, CI/CD integration |
 | [meeting-minutes](https://github.com/github/awesome-copilot/tree/main/skills/meeting-minutes) | github/awesome-copilot | Meeting minutes for short internal meetings |
 | [cmux](https://github.com/ph3on1x/claude-cmux-skill/tree/main/skills/cmux) | ph3on1x/claude-cmux-skill | Orchestrate multiple parallel Claude Code sessions within cmux |
-| [latex-document-skill](https://github.com/ndpvt-web/latex-document-skill) | ndpvt-web/latex-document-skill | Generate publication-ready LaTeX PDFs from handwritten notes, scans, or raw data (27 templates, OCR support) |
 
 ### External Skills — Academic Research
 
@@ -84,48 +117,35 @@ A collection of reusable AI skills for Claude Code, Cursor, GitHub Copilot, Code
 | [K-Dense-AI/scientific-agent-skills](https://github.com/K-Dense-AI/scientific-agent-skills) | Scientific research skills (paper writing, literature search, bioinformatics, drug discovery, quantum computing, and 120+ more) |
 | [Orchestra-Research/AI-Research-SKILLs](https://github.com/Orchestra-Research/AI-Research-SKILLs) | AI research skills (model architecture, fine-tuning, distributed training, inference, safety, and 87 more) |
 
-## Setup
-
-Requires [GitHub CLI](https://cli.github.com/).
-
-```fish
-git clone https://github.com/sanoakr/ai-skills.git
-cd ai-skills
-./setup-global.fish
-```
-
-Installs all skills globally for Claude Code, Codex, and GitHub Copilot.
-
-## Update
-
-```fish
-gh skill update --all
-```
-
-## Skill Format
+## File Structure
 
 ```
 ai-skills/
-└── <skill-name>/
-    ├── SKILL.md          # Skill definition (YAML frontmatter + Markdown)
-    └── scripts/          # Helper scripts (optional)
+├── setup-global.fish    # Setup script
+├── skills.conf          # External skills list (edit to share)
+├── skills.desc          # Japanese descriptions
+├── SKILL_TEMPLATE.md    # Template for new skills
+├── <skill-name>/
+│   ├── SKILL.md         # Skill definition (YAML frontmatter + Markdown)
+│   └── scripts/         # Helper scripts (optional)
+└── README.md
 ```
 
-`SKILL.md` frontmatter:
+## Adding Skills
 
-```yaml
----
-name: skill-name
-description: Description and activation conditions (include trigger phrases in all target languages)
-license: MIT
----
+### Adding external skills
+
+```fish
+./setup-global.fish add new-skill@owner/repo
 ```
 
-The body is plain Markdown and is consumed as-is by each AI tool.
-
-## Adding a Skill
+### Adding local skills
 
 1. Use `SKILL_TEMPLATE.md` as a starting point; create `<skill-name>/SKILL.md`
 2. Commit and push
 3. Dry-run publish: `gh skill publish --dry-run`
 4. Update in each tool: `gh skill update --all`
+
+## Related Repositories
+
+- [sanoakr/claude-plugins](https://github.com/sanoakr/claude-plugins) — Claude Code plugin & MCP management
