@@ -47,6 +47,7 @@ Directories containing `SKILL.md` are automatically detected. No entry in `skill
 | [ja-proofreading](./ja-proofreading/SKILL.md) | Japanese text proofreading with textlint |
 | [simple](./simple/SKILL.md) | Compressed Japanese output mode |
 | [gmail-persona](./gmail-persona/SKILL.md) | Build a persona knowledge base from Gmail history for Q&A and email drafting |
+| [md-to-pdf](./md-to-pdf/SKILL.md) | Convert Markdown to PDF/HTML/LaTeX via pandoc, xelatex, and wkhtmltopdf (Japanese support) |
 
 ### External Skills — Anthropic Official
 
