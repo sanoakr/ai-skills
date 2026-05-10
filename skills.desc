@@ -5,6 +5,7 @@
 ja-proofreading=textlintによる日本語文章の自動校正
 simple=日本語圧縮出力モード
 gmail-persona=Gmail履歴からペルソナ知識ベースを構築し、Q&A・メール下書きに活用
+md-to-pdf=Markdownファイルをpandoc/xelatex/wkhtmltopdfで高品質PDF・HTML・LaTeXに変換（日本語対応）
 
 # --- Git/Productivity ---
 git-workflow=Git Flow・GitHub Flow・trunk-based・CI/CD対応の包括的Gitワークフロー
