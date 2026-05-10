@@ -1,8 +1,10 @@
 ---
 name: md-to-pdf
 description: |
+  pandoc・xelatex・wkhtmltopdf などの CLI ツールが使える環境限定で、
   Markdownファイルを高品質なPDF・HTML・LaTeXに変換するスキル。
   日本語を含む文書の変換に対応。
+  Python ライブラリ（pypdf / reportlab など）による PDF 操作が目的の場合は pdf スキルを使うこと。
 
   以下のような場合に使用すること:
   - 「Markdownを PDF/HTML/LaTeX に変換して」
