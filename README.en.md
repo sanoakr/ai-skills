@@ -20,11 +20,20 @@ Installs all skills globally for Claude Code, Codex, and GitHub Copilot.
 ## Usage
 
 ```fish
-# Install/update all skills
+# Show available subcommands
 ./setup-global.fish
 
-# List all skills with descriptions
+# Install/update all skills
+./setup-global.fish install
+
+# Update installed skills + refresh pending skill descriptions (commit & push)
+./setup-global.fish update
+
+# List all skills with install status and descriptions
 ./setup-global.fish list
+
+# List sub-skills of pending repos with Japanese descriptions (offline)
+./setup-global.fish pending-list
 
 # Add an external skill (install → commit → push)
 ./setup-global.fish add <skill-name>@<owner/repo>
@@ -102,21 +111,36 @@ Directories containing `SKILL.md` are automatically detected. No entry in `skill
 
 ### External Skills — Individual Install (not in setup)
 
-> Too large to include in setup-global.fish. Install specific skills with `gh skill install {repo} {skill-name}`.
+> Tracked in `skills.conf` with a `?` prefix. Too large to include in `setup-global.fish`.  
+> Install specific skills with `gh skill install {repo} {skill-name}`.  
+> Check install status with `./setup-global.fish list`.
 
-| Repository | Skills | Description |
-|-----------|--------|-------------|
-| [lyndonkl/claude](https://github.com/lyndonkl/claude) | 188 | Multi-domain collection: thinking, research, communication, data/ML, finance, sports analytics, and more |
-| [VoltAgent/awesome-agent-skills](https://github.com/VoltAgent/awesome-agent-skills) | 1,100+ | Curated skill index from official teams (Microsoft, Google, Anthropic, Sentry, Trail of Bits) — registry format |
+| Skill | Repository | Description |
+|-------|-----------|-------------|
+| [alignment-values-north-star](https://github.com/lyndonkl/claude/tree/main/skills/alignment-values-north-star) | lyndonkl/claude | Define shared North Star, values, and principles for team alignment and decision-making |
+| [brainstorm-diverge-converge](https://github.com/lyndonkl/claude/tree/main/skills/brainstorm-diverge-converge) | lyndonkl/claude | Structured diverge-then-converge brainstorming facilitation |
+| [causal-inference-root-cause](https://github.com/lyndonkl/claude/tree/main/skills/causal-inference-root-cause) | lyndonkl/claude | Distinguish correlation from causation, identify root causes, control confounders |
+| [decision-matrix](https://github.com/lyndonkl/claude/tree/main/skills/decision-matrix) | lyndonkl/claude | Systematic multi-criteria decision evaluation with weighted scoring |
+| [environmental-scanning-foresight](https://github.com/lyndonkl/claude/tree/main/skills/environmental-scanning-foresight) | lyndonkl/claude | PESTLE analysis, weak signal detection, and scenario planning for strategic foresight |
+| [forecast-premortem](https://github.com/lyndonkl/claude/tree/main/skills/forecast-premortem) | lyndonkl/claude | Pre-mortem stress-testing of high-confidence predictions to surface tail risks |
+| [kill-criteria-exit-ramps](https://github.com/lyndonkl/claude/tree/main/skills/kill-criteria-exit-ramps) | lyndonkl/claude | Define project kill criteria and pre-committed exit triggers |
+| [metrics-tree](https://github.com/lyndonkl/claude/tree/main/skills/metrics-tree) | lyndonkl/claude | Decompose North Star metrics into KPI hierarchies and leading indicators |
+| [negotiation-alignment-governance](https://github.com/lyndonkl/claude/tree/main/skills/negotiation-alignment-governance) | lyndonkl/claude | Structured support for negotiation, consensus-building, and governance design |
+| [portfolio-roadmapping-bets](https://github.com/lyndonkl/claude/tree/main/skills/portfolio-roadmapping-bets) | lyndonkl/claude | Portfolio-level roadmap creation and bet prioritization |
+| [project-risk-register](https://github.com/lyndonkl/claude/tree/main/skills/project-risk-register) | lyndonkl/claude | Risk register with probability×impact matrix and mitigation plans |
+| [roadmap-backcast](https://github.com/lyndonkl/claude/tree/main/skills/roadmap-backcast) | lyndonkl/claude | Backcast from target date to define milestones and critical path |
+| [strategy-and-competitive-analysis](https://github.com/lyndonkl/claude/tree/main/skills/strategy-and-competitive-analysis) | lyndonkl/claude | Market entry, competitive analysis, Porter 5 Forces, SWOT, Blue Ocean Strategy |
+| [awesome-agent-skills](https://github.com/VoltAgent/awesome-agent-skills) | VoltAgent/awesome-agent-skills | Curated skill index from official teams (Microsoft, Google, Anthropic) — 1,100+ skills |
 
 ### External Skills — Pending (gh skill unsupported)
 
-> These repositories use non-standard directory structures and cannot be installed via `gh skill` at this time. Issues have been filed.
+> Tracked in `skills.conf` with a `~` prefix. Non-standard directory structures prevent `gh skill install` at this time.  
+> Check install status with `./setup-global.fish list`.
 
 | Repository | Description |
 |-----------|-------------|
-| [K-Dense-AI/scientific-agent-skills](https://github.com/K-Dense-AI/scientific-agent-skills) | Scientific research skills (paper writing, literature search, bioinformatics, drug discovery, quantum computing, and 120+ more) |
-| [Orchestra-Research/AI-Research-SKILLs](https://github.com/Orchestra-Research/AI-Research-SKILLs) | AI research skills (model architecture, fine-tuning, distributed training, inference, safety, and 87 more) |
+| [K-Dense-AI/scientific-agent-skills](https://github.com/K-Dense-AI/scientific-agent-skills) | Scientific research skills (paper writing, literature search, bioinformatics, drug discovery, quantum computing, 135+ skills) |
+| [Orchestra-Research/AI-Research-SKILLs](https://github.com/Orchestra-Research/AI-Research-SKILLs) | AI research skills (model architecture, fine-tuning, distributed training, inference, safety, 87 skills) |
 | [ndpvt-web/latex-document-skill](https://github.com/ndpvt-web/latex-document-skill) | Generate publication-ready LaTeX PDFs from handwritten notes, scans, or raw data (27 templates, OCR support) |
 
 ## File Structure
@@ -126,6 +150,7 @@ ai-skills/
 ├── setup-global.fish    # Setup script
 ├── skills.conf          # External skills list (edit to share)
 ├── skills.desc          # Japanese descriptions
+├── pending-descs/       # Japanese description TSVs for pending repos (generated by update)
 ├── SKILL_TEMPLATE.md    # Template for new skills
 ├── <skill-name>/
 │   ├── SKILL.md         # Skill definition (YAML frontmatter + Markdown)
