@@ -6,13 +6,13 @@
 # 外部スキル:     skills.conf に記載されたリポジトリからインストール
 #
 # 使い方:
-#   ./setup-global.fish              サブコマンド一覧を表示
-#   ./setup-global.fish install      全スキルをインストール・更新
-#   ./setup-global.fish add <s@r>    外部スキルを追加してコミット・プッシュ
-#   ./setup-global.fish remove <s>   外部スキルを削除してコミット・プッシュ
-#   ./setup-global.fish list         全スキル（ローカル＋外部）を日本語説明付きで表示
-#   ./setup-global.fish sync         リモートから pull して全スキルを同期
-#   ./setup-global.fish help         ヘルプを表示
+#   ./setup.fish              サブコマンド一覧を表示
+#   ./setup.fish install      全スキルをインストール・更新
+#   ./setup.fish add <s@r>    外部スキルを追加してコミット・プッシュ
+#   ./setup.fish remove <s>   外部スキルを削除してコミット・プッシュ
+#   ./setup.fish list         全スキル（ローカル＋外部）を日本語説明付きで表示
+#   ./setup.fish sync         リモートから pull して全スキルを同期
+#   ./setup.fish help         ヘルプを表示
 
 set REPO_DIR (dirname (realpath (status --current-filename)))
 set SCRIPT (basename (status --current-filename))
@@ -347,7 +347,7 @@ switch "$subcmd"
             echo ""
 
             if not test -f $tsv_file
-                echo "  (no description file — run '$SCRIPT update' to fetch)" >&2
+                echo "  (no description file — run '$SCRIPT fetch-pending' to fetch)" >&2
                 set missing_tsv 1
                 echo ""
                 continue
@@ -356,64 +356,14 @@ switch "$subcmd"
             # TSV を読んでリポジトリのファイルツリーと照合して表示
             set -l tree_file (mktemp /tmp/ai-skills-tree.XXXXXX)
             gh api "repos/$repo/git/trees/HEAD?recursive=1" > $tree_file 2>/dev/null
-            python3 -c "
-import sys, json
-
-data = json.load(open(sys.argv[2]))
-repo_name = sys.argv[1]
-tsv_path = sys.argv[3]
-
-desc_map = {}
-with open(tsv_path) as f:
-    for line in f:
-        line = line.strip()
-        if '\t' in line:
-            k, v = line.split('\t', 1)
-            desc_map[k.strip()] = v.strip()
-
-paths = [t['path'] for t in data.get('tree', [])
-         if t['path'].endswith('/SKILL.md') or t['path'] == 'SKILL.md']
-
-cats = set()
-for p in paths:
-    parts = p.split('/')
-    if len(parts) == 3:
-        cats.add(parts[0])
-use_category = len(cats) > 1
-
-prev_cat = None
-for path in sorted(paths):
-    parts = path.split('/')
-    if len(parts) == 1:
-        skill = repo_name
-        d = desc_map.get(skill, '')
-        print(f'  [-]  {skill:<28}  {d}')
-    elif len(parts) == 2:
-        skill = parts[0]
-        d = desc_map.get(skill, '')
-        print(f'  [-]  {skill:<28}  {d}')
-    elif len(parts) == 3:
-        cat, skill = parts[0], parts[1]
-        d = desc_map.get(skill, '')
-        if use_category:
-            if cat != prev_cat:
-                print(f'  [{cat}]')
-                prev_cat = cat
-            print(f'    [-]  {skill:<26}  {d}')
-        else:
-            print(f'  [-]  {skill:<28}  {d}')
-" $repo_name $tree_file $tsv_file
-            rm -f $tree_file
+            python3 "$REPO_DIR/print_pending_list.py" $repo_name $tree_file $tsv_file
+            command rm -f $tree_file
             echo ""
         end
 
-    case update
-        # gh skill update --all + pending repos の説明 TSV を再生成・翻訳 → コミット・プッシュ
-        echo "=== Updating installed skills ==="
-        echo ""
-        gh skill update --all
-        echo ""
-
+    case fetch-pending
+        # pending repos の説明 TSV を再生成・翻訳 → コミット・プッシュ
+        # インストール済みスキルの更新は gh skill update --all で別途実行
         echo "=== Updating pending skill descriptions ==="
         echo ""
         set -l pending_entries (read_skills_pending)
@@ -434,77 +384,27 @@ for path in sorted(paths):
             gh api "repos/$repo/git/trees/HEAD?recursive=1" > $tree_file 2>/dev/null
             if test $status -ne 0
                 echo "FAILED (tree fetch)"
-                rm -f $tree_file
+                command rm -f $tree_file
                 continue
             end
 
             # GraphQL で全 SKILL.md の description を一括取得
-            python3 -c "
-import sys, json, subprocess, re
-
-data = json.load(open(sys.argv[3]))
-owner, name = sys.argv[1], sys.argv[2]
-paths = [t['path'] for t in data.get('tree', [])
-         if t['path'].endswith('/SKILL.md') or t['path'] == 'SKILL.md']
-
-aliases, fields = [], []
-for p in paths:
-    alias = re.sub(r'[^a-zA-Z0-9]', '_', p.replace('/SKILL.md', '').replace('SKILL.md', '_root'))
-    if alias[0].isdigit():
-        alias = 's_' + alias
-    aliases.append((alias, p))
-    fields.append(f'{alias}: object(expression: \"HEAD:{p}\") {{ ... on Blob {{ text }} }}')
-
-query = '{repository(owner:\"' + owner + '\",name:\"' + name + '\"){' + ' '.join(fields) + '}}'
-result = subprocess.run(['gh', 'api', 'graphql', '-f', f'query={query}'],
-                        stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, text=True)
-try:
-    rdata = json.loads(result.stdout)
-    repo_data = rdata['data']['repository']
-except Exception:
-    sys.exit(1)
-
-rows = []
-for alias, path in aliases:
-    parts = path.split('/')
-    skill = parts[-2] if len(parts) >= 2 else name
-    obj = repo_data.get(alias)
-    if obj and obj.get('text'):
-        lines = obj['text'].split('\n')
-        desc = ''
-        in_block = False
-        for l in lines:
-            if l.startswith('description:'):
-                val = l[len('description:'):].strip().strip('\"').strip(\"'\")
-                if val == '>':
-                    in_block = True
-                else:
-                    desc = val
-                    break
-            elif in_block:
-                s = l.strip()
-                if s and not s.startswith('-'):
-                    desc = s
-                    break
-        rows.append(f'{skill}\t{desc[:120]}')
-
-print('\n'.join(rows))
-" $repo_owner $repo_name $tree_file > /tmp/ai-skills-raw.tsv 2>/dev/null
-            rm -f $tree_file
+            python3 "$REPO_DIR/fetch_skill_descs.py" $repo_owner $repo_name $tree_file > /tmp/ai-skills-raw.tsv 2>/dev/null
+            command rm -f $tree_file
 
             if test (wc -l < /tmp/ai-skills-raw.tsv) -eq 0
                 echo "FAILED (graphql)"
-                rm -f /tmp/ai-skills-raw.tsv
+                command rm -f /tmp/ai-skills-raw.tsv
                 continue
             end
 
             # claude -p で一括翻訳
             if command -q claude
-                cat /tmp/ai-skills-raw.tsv | claude -p "以下のスキル説明（英語）を各20文字以内の日本語に翻訳してください。入力はTSV形式（スキル名\t英語説明）、出力もTSV形式（スキル名\t日本語説明）で、スキル名はそのままにして説明だけ翻訳してください。" 2>/dev/null | grep -v '^\s*```' | grep -v '^\s*$' > $tsv_file
+                cat /tmp/ai-skills-raw.tsv | claude -p "以下のスキル説明（英語）を日本語に翻訳してください。入力はTSV形式（スキル名\t英語説明）、出力もTSV形式（スキル名\t日本語説明）で、スキル名はそのままにして説明だけ翻訳してください。説明は内容が分かる程度に簡潔にまとめ、40文字以内を目安にしてください。" 2>/dev/null | grep -v '^\s*```' | grep -v '^\s*$' > $tsv_file
             else
                 cp /tmp/ai-skills-raw.tsv $tsv_file
             end
-            rm -f /tmp/ai-skills-raw.tsv
+            command rm -f /tmp/ai-skills-raw.tsv
             echo "ok ("(wc -l < $tsv_file | string trim)" lines)"
             set updated_files $updated_files $tsv_file
         end
@@ -515,6 +415,19 @@ print('\n'.join(rows))
             git_commit_and_push "Update pending skill descriptions"
         end
 
+    case update
+        echo "=== Updating installed skills ==="
+        echo ""
+        # dry-run でアップデート対象スキル名を抽出し、名前指定で実行（メタデータなしスキルへの対話プロンプトを回避）
+        set -l targets (gh skill update --dry-run --all 2>/dev/null | grep '^\s*•' | sed 's/.*• \([^ ]*\) .*/\1/' | sort -u)
+        if test (count $targets) -eq 0
+            echo "All skills are up to date."
+        else
+            echo "Updates available: $targets"
+            echo ""
+            gh skill update --all $targets
+        end
+
     case install
         # 明示的インストール（下で処理）
 
@@ -522,8 +435,9 @@ print('\n'.join(rows))
         echo "Usage: $SCRIPT <command>"
         echo ""
         echo "Commands:"
-        echo "  install              Install/update all skills (local + external)"
-        echo "  update               Update installed skills + refresh pending descriptions"
+        echo "  install              Install all skills (local + external)"
+        echo "  update               Update installed skills via gh skill update"
+        echo "  fetch-pending        Fetch pending skill descriptions (TSV re-generation)"
         echo "  add <skill@repo>     Add external skill, install, commit & push"
         echo "  remove <skill>       Remove external skill, uninstall, commit & push"
         echo "  list                 Show all skills with install status"
