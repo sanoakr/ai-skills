@@ -134,6 +134,7 @@ Directories containing `SKILL.md` are automatically detected. No entry in `skill
 | [roadmap-backcast](https://github.com/lyndonkl/claude/tree/main/skills/roadmap-backcast) | lyndonkl/claude | Backcast from target date to define milestones and critical path |
 | [strategy-and-competitive-analysis](https://github.com/lyndonkl/claude/tree/main/skills/strategy-and-competitive-analysis) | lyndonkl/claude | Market entry, competitive analysis, Porter 5 Forces, SWOT, Blue Ocean Strategy |
 | [awesome-agent-skills](https://github.com/VoltAgent/awesome-agent-skills) | VoltAgent/awesome-agent-skills | Curated skill index from official teams (Microsoft, Google, Anthropic) — 1,100+ skills |
+| [scientific-agent-skills](https://github.com/K-Dense-AI/scientific-agent-skills) | K-Dense-AI/scientific-agent-skills | Scientific research skills (paper writing, literature search, bioinformatics, drug discovery, quantum computing, 140 skills) |
 
 ### External Skills — Pending (gh skill unsupported)
 
@@ -142,7 +143,6 @@ Directories containing `SKILL.md` are automatically detected. No entry in `skill
 
 | Repository | Description |
 |-----------|-------------|
-| [K-Dense-AI/scientific-agent-skills](https://github.com/K-Dense-AI/scientific-agent-skills) | Scientific research skills (paper writing, literature search, bioinformatics, drug discovery, quantum computing, 135+ skills) |
 | [Orchestra-Research/AI-Research-SKILLs](https://github.com/Orchestra-Research/AI-Research-SKILLs) | AI research skills (model architecture, fine-tuning, distributed training, inference, safety, 87 skills) |
 | [ndpvt-web/latex-document-skill](https://github.com/ndpvt-web/latex-document-skill) | Generate publication-ready LaTeX PDFs from handwritten notes, scans, or raw data (27 templates, OCR support) |
 
