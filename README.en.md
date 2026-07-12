@@ -23,8 +23,10 @@ Installs all skills globally for Claude Code, Codex, and GitHub Copilot.
 # Show available subcommands
 ./setup.fish
 
-# Install all skills
-./setup.fish install
+# Install all skills (target agents must be specified explicitly)
+./setup.fish install claude-code
+./setup.fish install claude-code codex     # multiple agents
+./setup.fish install all                   # all agents (claude-code codex github-copilot)
 
 # Update installed skills via gh skill update
 ./setup.fish update
@@ -39,13 +41,15 @@ Installs all skills globally for Claude Code, Codex, and GitHub Copilot.
 ./setup.fish pending-list
 
 # Add an external skill (install → commit → push)
-./setup.fish add <skill-name>@<owner/repo>
+# Installs to claude-code only unless agents are specified
+./setup.fish add <skill-name>@<owner/repo> [agent ...]
 
 # Remove an external skill (commit → push)
 ./setup.fish remove <skill-name>
 
-# Pull from remote and sync all skills (for initial setup on another PC)
-./setup.fish sync
+# Pull from remote (installs too when agents are specified)
+./setup.fish sync                # pull only
+./setup.fish sync claude-code    # pull + install to claude-code
 ```
 
 ## Skills

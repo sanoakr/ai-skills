@@ -18,7 +18,7 @@ set REPO_DIR (dirname (realpath (status --current-filename)))
 set SCRIPT (basename (status --current-filename))
 set CONF "$REPO_DIR/skills.conf"
 set DESC_FILE "$REPO_DIR/skills.desc"
-set AGENTS claude-code codex github-copilot
+set SUPPORTED_AGENTS claude-code codex github-copilot
 set SCOPE user
 
 # ---------- ヘルパー関数 ----------
@@ -100,6 +100,26 @@ function discover_local_skills
     end
 end
 
+function validate_agents
+    # 引数のエージェント名を検証（不正なら 1 を返す）。"all" は許可。
+    for a in $argv
+        if test "$a" != all; and not contains -- $a $SUPPORTED_AGENTS
+            echo "Error: unknown agent '$a' (supported: $SUPPORTED_AGENTS, all)" >&2
+            return 1
+        end
+    end
+    return 0
+end
+
+function expand_agents
+    # "all" を全対応エージェントに展開して返す
+    if contains -- all $argv
+        string join \n $SUPPORTED_AGENTS
+    else
+        string join \n $argv
+    end
+end
+
 function get_description --argument-names skill_name
     # skills.desc から日本語説明を取得
     # skill_name に / が含まれる場合は display_name で検索
@@ -167,10 +187,21 @@ switch "$subcmd"
 
     case add
         if test (count $argv) -lt 2
-            echo "Usage: $SCRIPT add <skill-name@owner/repo>" >&2
+            echo "Usage: $SCRIPT add <skill-name@owner/repo> [agent ...]" >&2
+            echo "  agents: $SUPPORTED_AGENTS | all（省略時は claude-code）" >&2
             exit 1
         end
         set entry $argv[2]
+
+        # インストール先エージェント（省略時は claude-code のみ）
+        set -l add_agent_args $argv[3..-1]
+        if test (count $add_agent_args) -eq 0
+            set add_agent_args claude-code
+        end
+        if not validate_agents $add_agent_args
+            exit 1
+        end
+        set -l add_agents (expand_agents $add_agent_args)
 
         # パース（@ 必須）
         if not string match -q '*@*' -- $entry
@@ -195,9 +226,9 @@ switch "$subcmd"
         echo $entry >> $CONF
         echo "Added '$entry' to skills.conf"
 
-        # 全エージェントにインストール
+        # 指定エージェントにインストール
         set errors 0
-        for agent in $AGENTS
+        for agent in $add_agents
             printf "  [%s] %-36s ... " $agent $skill_name
             install_external_skill $repo $skill_name $agent
             or set errors (math $errors + 1)
@@ -323,8 +354,17 @@ switch "$subcmd"
             echo "  No remote configured, skipping pull."
         end
         echo ""
-        # sync 後はデフォルトのインストールにフォールスルー
-        set subcmd ""
+        # エージェント指定があれば pull 後にインストールも実行
+        set -l sync_agent_args $argv[2..-1]
+        if test (count $sync_agent_args) -eq 0
+            echo "Pull complete. To install skills, specify agents:"
+            echo "  $SCRIPT sync <agent ...>   (agents: $SUPPORTED_AGENTS | all)"
+            exit 0
+        end
+        if not validate_agents $sync_agent_args
+            exit 1
+        end
+        set -g INSTALL_AGENTS (expand_agents $sync_agent_args)
 
     case pending-list
         # pending-descs/<owner>-<repo>.tsv を読んで表示（API 呼び出しなし）
@@ -429,21 +469,31 @@ switch "$subcmd"
         end
 
     case install
-        # 明示的インストール（下で処理）
+        # インストール先エージェントは明示必須（実処理は下のブロック）
+        set -l install_agent_args $argv[2..-1]
+        if test (count $install_agent_args) -eq 0; or not validate_agents $install_agent_args
+            echo "Usage: $SCRIPT install <agent ...>" >&2
+            echo "  agents: $SUPPORTED_AGENTS | all" >&2
+            exit 1
+        end
+        set -g INSTALL_AGENTS (expand_agents $install_agent_args)
 
     case help -h --help ''
         echo "Usage: $SCRIPT <command>"
         echo ""
         echo "Commands:"
-        echo "  install              Install all skills (local + external)"
-        echo "  update               Update installed skills via gh skill update"
-        echo "  fetch-pending        Fetch pending skill descriptions (TSV re-generation)"
-        echo "  add <skill@repo>     Add external skill, install, commit & push"
-        echo "  remove <skill>       Remove external skill, uninstall, commit & push"
-        echo "  list                 Show all skills with install status"
-        echo "  pending-list         List sub-skills of pending repos (offline)"
-        echo "  sync                 Pull from remote and install all"
-        echo "  help                 Show this help"
+        echo "  install <agent ...>          Install all skills to the given agents"
+        echo "  update                       Update installed skills via gh skill update"
+        echo "  fetch-pending                Fetch pending skill descriptions (TSV re-generation)"
+        echo "  add <skill@repo> [agent ...] Add external skill, install, commit & push"
+        echo "                               (agent 省略時は claude-code のみ)"
+        echo "  remove <skill>               Remove external skill, uninstall, commit & push"
+        echo "  list                         Show all skills with install status"
+        echo "  pending-list                 List sub-skills of pending repos (offline)"
+        echo "  sync [agent ...]             Pull from remote; with agents, install too"
+        echo "  help                         Show this help"
+        echo ""
+        echo "Agents: $SUPPORTED_AGENTS | all"
         echo ""
         echo "Skill entry format (skills.conf):"
         echo "  skill@owner/repo     Installed by setup"
@@ -457,13 +507,13 @@ switch "$subcmd"
         exit 1
 end
 
-# ---------- 全スキルインストール（デフォルト / sync 後） ----------
+# ---------- 全スキルインストール（install / sync <agent ...>） ----------
 
-if test "$subcmd" = "install" -o "$subcmd" = "sync"
+if test (count $INSTALL_AGENTS) -gt 0
     set -l local_skills (discover_local_skills)
     set -l entries (read_skills)
 
-    echo "Agents:          $AGENTS"
+    echo "Agents:          $INSTALL_AGENTS"
     echo "Scope:           $SCOPE"
     echo "Local skills:    $local_skills"
     echo "External skills: "(count $entries)" entries from skills.conf"
@@ -471,7 +521,7 @@ if test "$subcmd" = "install" -o "$subcmd" = "sync"
 
     set errors 0
 
-    for agent in $AGENTS
+    for agent in $INSTALL_AGENTS
         echo "=== $agent ==="
 
         # ローカルスキル
