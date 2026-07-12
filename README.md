@@ -2,7 +2,7 @@
 
 日本語 | [English](./README.en.md)
 
-Claude Code・Cursor・GitHub Copilot・Codex などの AI ツールで共通利用できる汎用スキル集。
+Claude Code 向けの汎用スキル集。
 複数 PC 間で `skills.conf` を通じてスキル設定を共有する。
 
 ## セットアップ
@@ -15,7 +15,7 @@ cd ai-skills
 ./setup.fish
 ```
 
-Claude Code・Codex・GitHub Copilot にグローバルスコープで全スキルをインストールする。
+Claude Code にグローバルスコープで全スキルをインストールする。
 
 ## 使い方
 

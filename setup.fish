@@ -1,5 +1,5 @@
 #!/usr/bin/env fish
-# Claude Code / Codex / GitHub Copilot スキル一括セットアップスクリプト
+# Claude Code スキル一括セットアップスクリプト
 # 複数 PC 間で設定を共有するために GitHub リポジトリで管理する
 #
 # ローカルスキル: リポジトリ内の SKILL.md を含むディレクトリから自動検出
@@ -18,7 +18,7 @@ set REPO_DIR (dirname (realpath (status --current-filename)))
 set SCRIPT (basename (status --current-filename))
 set CONF "$REPO_DIR/skills.conf"
 set DESC_FILE "$REPO_DIR/skills.desc"
-set AGENTS claude-code codex github-copilot
+set AGENTS claude-code
 set SCOPE user
 
 # ---------- ヘルパー関数 ----------

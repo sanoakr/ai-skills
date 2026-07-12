@@ -2,7 +2,7 @@
 
 [日本語](./README.md) | English
 
-A collection of reusable AI skills for Claude Code, Cursor, GitHub Copilot, Codex, and other AI tools.
+A collection of reusable AI skills for Claude Code.
 Share skill configurations across multiple PCs via `skills.conf`.
 
 ## Setup
@@ -15,7 +15,7 @@ cd ai-skills
 ./setup.fish
 ```
 
-Installs all skills globally for Claude Code, Codex, and GitHub Copilot.
+Installs all skills globally for Claude Code.
 
 ## Usage
 
