@@ -54,6 +54,18 @@ Installs all skills globally for Claude Code, Codex, and GitHub Copilot.
 
 ## Skills
 
+> **The auto-install set is kept deliberately small.** Every skill listed in
+> `skills.conf` stays resident in Claude Code's skill listing for *every*
+> session and consumes context accordingly (the listing is budgeted at roughly
+> 1% of the context window — past that, descriptions get truncated and skill
+> routing degrades).
+> The 2026-08-02 audit therefore demoted every skill with no recorded use to
+> `?` (individual install). The auto-install set is now the 4 local skills plus
+> `skill-creator`.
+> Sections marked **`?`** are installed on demand with
+> `gh skill install <repo> <skill>`; run `./setup.fish list` to see current
+> install status.
+
 ### Local Skills (auto-discovered)
 
 Directories containing `SKILL.md` are automatically detected. No entry in `skills.conf` needed.
@@ -65,37 +77,29 @@ Directories containing `SKILL.md` are automatically detected. No entry in `skill
 | [gmail-persona](./gmail-persona/SKILL.md) | Build a persona knowledge base from Gmail history for Q&A and email drafting |
 | [md-to-pdf](./md-to-pdf/SKILL.md) | Convert Markdown to PDF/HTML/LaTeX via pandoc, xelatex, and wkhtmltopdf (Japanese support) |
 
-### External Skills — Anthropic Official
+### External Skills — Anthropic Official (`?` except `skill-creator`)
 
 | Skill | Description |
 |-------|-------------|
-| [algorithmic-art](https://github.com/anthropics/skills/tree/main/skills/algorithmic-art) | Algorithmic and generative art creation |
-| [brand-guidelines](https://github.com/anthropics/skills/tree/main/skills/brand-guidelines) | Brand guidelines development and maintenance |
-| [canvas-design](https://github.com/anthropics/skills/tree/main/skills/canvas-design) | Canvas-based design work |
-| [claude-api](https://github.com/anthropics/skills/tree/main/skills/claude-api) | Claude API integration and examples (multi-language) |
-| [doc-coauthoring](https://github.com/anthropics/skills/tree/main/skills/doc-coauthoring) | Document co-authoring and collaboration |
-| [docx](https://github.com/anthropics/skills/tree/main/skills/docx) | Microsoft Word (.docx) document generation and manipulation |
-| [frontend-design](https://github.com/anthropics/skills/tree/main/skills/frontend-design) | Frontend and UI design |
-| [internal-comms](https://github.com/anthropics/skills/tree/main/skills/internal-comms) | Internal communications and document automation |
-| [mcp-builder](https://github.com/anthropics/skills/tree/main/skills/mcp-builder) | MCP server development and construction |
-| [pdf](https://github.com/anthropics/skills/tree/main/skills/pdf) | PDF document generation and manipulation |
-| [pptx](https://github.com/anthropics/skills/tree/main/skills/pptx) | PowerPoint (.pptx) presentation generation |
+| `?` [algorithmic-art](https://github.com/anthropics/skills/tree/main/skills/algorithmic-art) | Algorithmic and generative art creation |
+| `?` [brand-guidelines](https://github.com/anthropics/skills/tree/main/skills/brand-guidelines) | Brand guidelines development and maintenance |
+| `?` [canvas-design](https://github.com/anthropics/skills/tree/main/skills/canvas-design) | Canvas-based design work |
+| `?` [claude-api](https://github.com/anthropics/skills/tree/main/skills/claude-api) | Claude API integration and examples (multi-language) |
+| `?` [doc-coauthoring](https://github.com/anthropics/skills/tree/main/skills/doc-coauthoring) | Document co-authoring and collaboration |
+| `?` [docx](https://github.com/anthropics/skills/tree/main/skills/docx) | Microsoft Word (.docx) document generation and manipulation |
+| `?` [frontend-design](https://github.com/anthropics/skills/tree/main/skills/frontend-design) | Frontend and UI design |
+| `?` [internal-comms](https://github.com/anthropics/skills/tree/main/skills/internal-comms) | Internal communications and document automation |
+| `?` [mcp-builder](https://github.com/anthropics/skills/tree/main/skills/mcp-builder) | MCP server development and construction |
+| `?` [pdf](https://github.com/anthropics/skills/tree/main/skills/pdf) | PDF document generation and manipulation |
+| `?` [pptx](https://github.com/anthropics/skills/tree/main/skills/pptx) | PowerPoint (.pptx) presentation generation |
 | [skill-creator](https://github.com/anthropics/skills/tree/main/skills/skill-creator) | New skill creation and template tooling |
-| [slack-gif-creator](https://github.com/anthropics/skills/tree/main/skills/slack-gif-creator) | GIF creation for Slack |
-| [theme-factory](https://github.com/anthropics/skills/tree/main/skills/theme-factory) | Theme and design system generation |
-| [web-artifacts-builder](https://github.com/anthropics/skills/tree/main/skills/web-artifacts-builder) | Web artifact construction |
-| [webapp-testing](https://github.com/anthropics/skills/tree/main/skills/webapp-testing) | Web application test automation |
-| [xlsx](https://github.com/anthropics/skills/tree/main/skills/xlsx) | Excel (.xlsx) spreadsheet generation and manipulation |
+| `?` [slack-gif-creator](https://github.com/anthropics/skills/tree/main/skills/slack-gif-creator) | GIF creation for Slack |
+| `?` [theme-factory](https://github.com/anthropics/skills/tree/main/skills/theme-factory) | Theme and design system generation |
+| `?` [web-artifacts-builder](https://github.com/anthropics/skills/tree/main/skills/web-artifacts-builder) | Web artifact construction |
+| `?` [webapp-testing](https://github.com/anthropics/skills/tree/main/skills/webapp-testing) | Web application test automation |
+| `?` [xlsx](https://github.com/anthropics/skills/tree/main/skills/xlsx) | Excel (.xlsx) spreadsheet generation and manipulation |
 
-### External Skills — General
-
-| Skill | Repository | Description |
-|-------|-----------|-------------|
-| [git-workflow](https://github.com/netresearch/git-workflow-skill) | netresearch/git-workflow-skill | Comprehensive Git workflows: Git Flow, GitHub Flow, trunk-based, CI/CD integration |
-| [meeting-minutes](https://github.com/github/awesome-copilot/tree/main/skills/meeting-minutes) | github/awesome-copilot | Meeting minutes for short internal meetings |
-| [cmux](https://github.com/ph3on1x/claude-cmux-skill/tree/main/skills/cmux) | ph3on1x/claude-cmux-skill | Orchestrate multiple parallel Claude Code sessions within cmux |
-
-### External Skills — Academic Research
+### External Skills — Academic Research (all `?`)
 
 | Skill | Repository | Description |
 |-------|-----------|-------------|
@@ -104,7 +108,7 @@ Directories containing `SKILL.md` are automatically detected. No entry in `skill
 | [academic-paper-reviewer](https://github.com/Imbad0202/academic-research-skills/tree/main/academic-paper-reviewer) | Imbad0202/academic-research-skills | 7-agent peer review simulator (reviewers + editor-in-chief decision) |
 | [academic-pipeline](https://github.com/Imbad0202/academic-research-skills/tree/main/academic-pipeline) | Imbad0202/academic-research-skills | Full-pipeline orchestrator: research → write → integrity → review → revise → finalize |
 
-### External Skills — Cloud
+### External Skills — Cloud (all `?`)
 
 | Skill | Repository | Description |
 |-------|-----------|-------------|
