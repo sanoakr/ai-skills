@@ -82,13 +82,11 @@ Directories containing `SKILL.md` are automatically detected. No entry in `skill
 | Skill | Description |
 |-------|-------------|
 | `?` [algorithmic-art](https://github.com/anthropics/skills/tree/main/skills/algorithmic-art) | Algorithmic and generative art creation |
-| `?` [brand-guidelines](https://github.com/anthropics/skills/tree/main/skills/brand-guidelines) | Brand guidelines development and maintenance |
 | `?` [canvas-design](https://github.com/anthropics/skills/tree/main/skills/canvas-design) | Canvas-based design work |
 | `?` [claude-api](https://github.com/anthropics/skills/tree/main/skills/claude-api) | Claude API integration and examples (multi-language) |
 | `?` [doc-coauthoring](https://github.com/anthropics/skills/tree/main/skills/doc-coauthoring) | Document co-authoring and collaboration |
 | `?` [docx](https://github.com/anthropics/skills/tree/main/skills/docx) | Microsoft Word (.docx) document generation and manipulation |
 | `?` [frontend-design](https://github.com/anthropics/skills/tree/main/skills/frontend-design) | Frontend and UI design |
-| `?` [internal-comms](https://github.com/anthropics/skills/tree/main/skills/internal-comms) | Internal communications and document automation |
 | `?` [mcp-builder](https://github.com/anthropics/skills/tree/main/skills/mcp-builder) | MCP server development and construction |
 | `?` [pdf](https://github.com/anthropics/skills/tree/main/skills/pdf) | PDF document generation and manipulation |
 | `?` [pptx](https://github.com/anthropics/skills/tree/main/skills/pptx) | PowerPoint (.pptx) presentation generation |

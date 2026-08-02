@@ -80,13 +80,11 @@ Claude Code・Codex・GitHub Copilot にグローバルスコープで全スキ�
 | スキル | 説明 |
 |--------|------|
 | `?` [algorithmic-art](https://github.com/anthropics/skills/tree/main/skills/algorithmic-art) | アルゴリズム・ジェネラティブアート生成 |
-| `?` [brand-guidelines](https://github.com/anthropics/skills/tree/main/skills/brand-guidelines) | ブランドガイドライン策定・維持 |
 | `?` [canvas-design](https://github.com/anthropics/skills/tree/main/skills/canvas-design) | キャンバスベースのデザイン制作 |
 | `?` [claude-api](https://github.com/anthropics/skills/tree/main/skills/claude-api) | Claude API 統合・サンプルコード（多言語対応） |
 | `?` [doc-coauthoring](https://github.com/anthropics/skills/tree/main/skills/doc-coauthoring) | ドキュメントの共同執筆・コラボレーション |
 | `?` [docx](https://github.com/anthropics/skills/tree/main/skills/docx) | Word (.docx) ドキュメントの生成・操作 |
 | `?` [frontend-design](https://github.com/anthropics/skills/tree/main/skills/frontend-design) | フロントエンド・UI デザイン |
-| `?` [internal-comms](https://github.com/anthropics/skills/tree/main/skills/internal-comms) | 社内コミュニケーション・文書自動化 |
 | `?` [mcp-builder](https://github.com/anthropics/skills/tree/main/skills/mcp-builder) | MCP サーバー開発・構築 |
 | `?` [pdf](https://github.com/anthropics/skills/tree/main/skills/pdf) | PDF ドキュメントの生成・操作 |
 | `?` [pptx](https://github.com/anthropics/skills/tree/main/skills/pptx) | PowerPoint (.pptx) プレゼンテーション生成 |
