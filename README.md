@@ -54,6 +54,16 @@ Claude Code・Codex・GitHub Copilot にグローバルスコープで全スキ�
 
 ## スキル一覧
 
+> **自動インストール対象は最小限に絞っています。** `skills.conf` に載るスキルは
+> Claude Code の**全セッションでスキル一覧に常駐**し、その分だけコンテキストを
+> 消費します（一覧はコンテキストウィンドウの約1%が上限で、超えると説明文が
+> 切り詰められスキル選択の精度が落ちます）。
+> そのため 2026-08-02 の棚卸しで、利用実績のないスキルはすべて `?`
+> （個別インストール）へ降格しました。現在の自動インストール対象は
+> ローカルスキル4個 + `skill-creator` のみです。
+> 見出しに **`?`** が付いたセクションは `gh skill install {リポジトリ} {スキル名}`
+> で個別に導入します。インストール状況は `./setup.fish list` で確認できます。
+
 ### ローカルスキル（自動検出）
 
 リポジトリ内の `SKILL.md` を含むディレクトリから自動検出される。`skills.conf` への記載不要。
@@ -65,37 +75,27 @@ Claude Code・Codex・GitHub Copilot にグローバルスコープで全スキ�
 | [gmail-persona](./gmail-persona/SKILL.md) | Gmail 履歴からペルソナ知識ベースを構築し、Q&A・メール下書きに活用 |
 | [md-to-pdf](./md-to-pdf/SKILL.md) | Markdown を pandoc/xelatex/wkhtmltopdf で高品質 PDF・HTML・LaTeX に変換（日本語対応） |
 
-### 外部スキル — Anthropic 公式
+### 外部スキル — Anthropic 公式（`skill-creator` 以外は `?`）
 
 | スキル | 説明 |
 |--------|------|
-| [algorithmic-art](https://github.com/anthropics/skills/tree/main/skills/algorithmic-art) | アルゴリズム・ジェネラティブアート生成 |
-| [brand-guidelines](https://github.com/anthropics/skills/tree/main/skills/brand-guidelines) | ブランドガイドライン策定・維持 |
-| [canvas-design](https://github.com/anthropics/skills/tree/main/skills/canvas-design) | キャンバスベースのデザイン制作 |
-| [claude-api](https://github.com/anthropics/skills/tree/main/skills/claude-api) | Claude API 統合・サンプルコード（多言語対応） |
-| [doc-coauthoring](https://github.com/anthropics/skills/tree/main/skills/doc-coauthoring) | ドキュメントの共同執筆・コラボレーション |
-| [docx](https://github.com/anthropics/skills/tree/main/skills/docx) | Word (.docx) ドキュメントの生成・操作 |
-| [frontend-design](https://github.com/anthropics/skills/tree/main/skills/frontend-design) | フロントエンド・UI デザイン |
-| [internal-comms](https://github.com/anthropics/skills/tree/main/skills/internal-comms) | 社内コミュニケーション・文書自動化 |
-| [mcp-builder](https://github.com/anthropics/skills/tree/main/skills/mcp-builder) | MCP サーバー開発・構築 |
-| [pdf](https://github.com/anthropics/skills/tree/main/skills/pdf) | PDF ドキュメントの生成・操作 |
-| [pptx](https://github.com/anthropics/skills/tree/main/skills/pptx) | PowerPoint (.pptx) プレゼンテーション生成 |
+| `?` [algorithmic-art](https://github.com/anthropics/skills/tree/main/skills/algorithmic-art) | アルゴリズム・ジェネラティブアート生成 |
+| `?` [canvas-design](https://github.com/anthropics/skills/tree/main/skills/canvas-design) | キャンバスベースのデザイン制作 |
+| `?` [claude-api](https://github.com/anthropics/skills/tree/main/skills/claude-api) | Claude API 統合・サンプルコード（多言語対応） |
+| `?` [doc-coauthoring](https://github.com/anthropics/skills/tree/main/skills/doc-coauthoring) | ドキュメントの共同執筆・コラボレーション |
+| `?` [docx](https://github.com/anthropics/skills/tree/main/skills/docx) | Word (.docx) ドキュメントの生成・操作 |
+| `?` [frontend-design](https://github.com/anthropics/skills/tree/main/skills/frontend-design) | フロントエンド・UI デザイン |
+| `?` [mcp-builder](https://github.com/anthropics/skills/tree/main/skills/mcp-builder) | MCP サーバー開発・構築 |
+| `?` [pdf](https://github.com/anthropics/skills/tree/main/skills/pdf) | PDF ドキュメントの生成・操作 |
+| `?` [pptx](https://github.com/anthropics/skills/tree/main/skills/pptx) | PowerPoint (.pptx) プレゼンテーション生成 |
 | [skill-creator](https://github.com/anthropics/skills/tree/main/skills/skill-creator) | 新スキルの作成・テンプレート活用 |
-| [slack-gif-creator](https://github.com/anthropics/skills/tree/main/skills/slack-gif-creator) | Slack 用 GIF 作成 |
-| [theme-factory](https://github.com/anthropics/skills/tree/main/skills/theme-factory) | テーマ・デザインシステム生成 |
-| [web-artifacts-builder](https://github.com/anthropics/skills/tree/main/skills/web-artifacts-builder) | Web アーティファクト構築 |
-| [webapp-testing](https://github.com/anthropics/skills/tree/main/skills/webapp-testing) | Web アプリケーションテスト自動化 |
-| [xlsx](https://github.com/anthropics/skills/tree/main/skills/xlsx) | Excel (.xlsx) スプレッドシート生成・操作 |
+| `?` [slack-gif-creator](https://github.com/anthropics/skills/tree/main/skills/slack-gif-creator) | Slack 用 GIF 作成 |
+| `?` [theme-factory](https://github.com/anthropics/skills/tree/main/skills/theme-factory) | テーマ・デザインシステム生成 |
+| `?` [web-artifacts-builder](https://github.com/anthropics/skills/tree/main/skills/web-artifacts-builder) | Web アーティファクト構築 |
+| `?` [webapp-testing](https://github.com/anthropics/skills/tree/main/skills/webapp-testing) | Web アプリケーションテスト自動化 |
+| `?` [xlsx](https://github.com/anthropics/skills/tree/main/skills/xlsx) | Excel (.xlsx) スプレッドシート生成・操作 |
 
-### 外部スキル — 汎用
-
-| スキル | リポジトリ | 説明 |
-|--------|-----------|------|
-| [git-workflow](https://github.com/netresearch/git-workflow-skill) | netresearch/git-workflow-skill | Git Flow・GitHub Flow・trunk-based・CI/CD 対応の包括的 Git ワークフロー |
-| [meeting-minutes](https://github.com/github/awesome-copilot/tree/main/skills/meeting-minutes) | github/awesome-copilot | 社内短時間ミーティングの議事録作成 |
-| [cmux](https://github.com/ph3on1x/claude-cmux-skill/tree/main/skills/cmux) | ph3on1x/claude-cmux-skill | cmux 上で複数の Claude Code セッションを並列オーケストレーション |
-
-### 外部スキル — 学術研究
+### 外部スキル — 学術研究（すべて `?`）
 
 | スキル | リポジトリ | 説明 |
 |--------|-----------|------|
@@ -104,7 +104,7 @@ Claude Code・Codex・GitHub Copilot にグローバルスコープで全スキ�
 | [academic-paper-reviewer](https://github.com/Imbad0202/academic-research-skills/tree/main/academic-paper-reviewer) | Imbad0202/academic-research-skills | 7エージェントによるピアレビューシミュレーター（査読・編集委員長判定） |
 | [academic-pipeline](https://github.com/Imbad0202/academic-research-skills/tree/main/academic-pipeline) | Imbad0202/academic-research-skills | 研究→執筆→整合性チェック→査読→改稿→最終化の全工程オーケストレーター |
 
-### 外部スキル — クラウド
+### 外部スキル — クラウド（すべて `?`）
 
 | スキル | リポジトリ | 説明 |
 |--------|-----------|------|
