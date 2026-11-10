@@ -76,6 +76,7 @@ Directories containing `SKILL.md` are automatically detected. No entry in `skill
 | [simple](./simple/SKILL.md) | Compressed Japanese output mode |
 | [gmail-persona](./gmail-persona/SKILL.md) | Build a persona knowledge base from Gmail history for Q&A and email drafting |
 | [md-to-pdf](./md-to-pdf/SKILL.md) | Convert Markdown to PDF/HTML/LaTeX via pandoc, xelatex, and wkhtmltopdf (Japanese support) |
+| [furusato-nozei-limit](./furusato-nozei-limit/SKILL.md) | Compute Furusato Nozei (hometown tax) deduction limits and breakdowns using NTA/MIC formulas, incl. separate-taxation income and adjustment deduction |
 
 ### External Skills — Anthropic Official (`?` except `skill-creator`)
 

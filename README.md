@@ -74,6 +74,7 @@ Claude Code・Codex・GitHub Copilot にグローバルスコープで全スキ�
 | [simple](./simple/SKILL.md) | 日本語圧縮出力モード |
 | [gmail-persona](./gmail-persona/SKILL.md) | Gmail 履歴からペルソナ知識ベースを構築し、Q&A・メール下書きに活用 |
 | [md-to-pdf](./md-to-pdf/SKILL.md) | Markdown を pandoc/xelatex/wkhtmltopdf で高品質 PDF・HTML・LaTeX に変換（日本語対応） |
+| [furusato-nozei-limit](./furusato-nozei-limit/SKILL.md) | ふるさと納税の控除上限額・控除内訳を国税庁/総務省の式で計算（先物等の分離課税・調整控除に対応） |
 
 ### 外部スキル — Anthropic 公式（`skill-creator` 以外は `?`）
 
