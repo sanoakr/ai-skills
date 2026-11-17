@@ -60,24 +60,35 @@ Installs all skills globally for Claude Code, Codex, and GitHub Copilot.
 > 1% of the context window — past that, descriptions get truncated and skill
 > routing degrades).
 > The 2026-08-02 audit therefore demoted every skill with no recorded use to
-> `?` (individual install). The auto-install set is now the 4 local skills plus
-> `skill-creator`.
+> `?` (individual install). The 2026-11-17 audit also demoted `skill-creator`
+> and the 4 local skills, so the auto-install set is now just `yomiyasu` and
+> `imozuru`.
 > Sections marked **`?`** are installed on demand with
 > `gh skill install <repo> <skill>`; run `./setup.fish list` to see current
 > install status.
 
-### Local Skills (auto-discovered)
+### Local Skills (auto-discovered, currently all `?`)
 
-Directories containing `SKILL.md` are automatically detected. No entry in `skills.conf` needed.
+Directories containing `SKILL.md` are automatically detected and need no entry in `skills.conf`;
+a `?<name>@local` line excludes one from setup. To install one on demand, run
+`gh skill install . <name> --from-local --scope user --agent claude-code`.
 
 | Skill | Description |
 |-------|-------------|
-| [ja-proofreading](./ja-proofreading/SKILL.md) | Japanese text proofreading with textlint |
-| [simple](./simple/SKILL.md) | Compressed Japanese output mode |
-| [gmail-persona](./gmail-persona/SKILL.md) | Build a persona knowledge base from Gmail history for Q&A and email drafting |
-| [md-to-pdf](./md-to-pdf/SKILL.md) | Convert Markdown to PDF/HTML/LaTeX via pandoc, xelatex, and wkhtmltopdf (Japanese support) |
+| `?` [ja-proofreading](./ja-proofreading/SKILL.md) | Japanese text proofreading with textlint |
+| `?` [simple](./simple/SKILL.md) | Compressed Japanese output mode |
+| `?` [gmail-persona](./gmail-persona/SKILL.md) | Build a persona knowledge base from Gmail history for Q&A and email drafting |
+| `?` [md-to-pdf](./md-to-pdf/SKILL.md) | Convert Markdown to PDF/HTML/LaTeX via pandoc, xelatex, and wkhtmltopdf (Japanese support) |
 
-### External Skills — Anthropic Official (`?` except `skill-creator`)
+### External Skills — Japanese & Research
+
+| Skill | Description |
+|-------|-------------|
+| [yomiyasu](https://github.com/nanaism/yomiyasu) | Refine AI-generated Japanese into natural Japanese |
+| [imozuru](https://github.com/MaryCache/imozuru) | Dig into an unfamiliar field, following citations until you reach the primary sources |
+| `?` [last30days](https://github.com/mvanhorn/last30days-skill) | Research what people said about a topic in the last 30 days across Reddit, X, YouTube, HN and the web |
+
+### External Skills — Anthropic Official (all `?`)
 
 | Skill | Description |
 |-------|-------------|
@@ -90,7 +101,7 @@ Directories containing `SKILL.md` are automatically detected. No entry in `skill
 | `?` [mcp-builder](https://github.com/anthropics/skills/tree/main/skills/mcp-builder) | MCP server development and construction |
 | `?` [pdf](https://github.com/anthropics/skills/tree/main/skills/pdf) | PDF document generation and manipulation |
 | `?` [pptx](https://github.com/anthropics/skills/tree/main/skills/pptx) | PowerPoint (.pptx) presentation generation |
-| [skill-creator](https://github.com/anthropics/skills/tree/main/skills/skill-creator) | New skill creation and template tooling |
+| `?` [skill-creator](https://github.com/anthropics/skills/tree/main/skills/skill-creator) | New skill creation and template tooling |
 | `?` [slack-gif-creator](https://github.com/anthropics/skills/tree/main/skills/slack-gif-creator) | GIF creation for Slack |
 | `?` [theme-factory](https://github.com/anthropics/skills/tree/main/skills/theme-factory) | Theme and design system generation |
 | `?` [web-artifacts-builder](https://github.com/anthropics/skills/tree/main/skills/web-artifacts-builder) | Web artifact construction |

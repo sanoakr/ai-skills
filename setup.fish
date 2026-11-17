@@ -91,11 +91,25 @@ function display_name --argument-names skill_name
     string replace -r '.+/' '' -- $skill_name
 end
 
+function optional_local_skills
+    # skills.conf の ?<name>@local 行（setup 対象外にしたローカルスキル）の名前を返す
+    for entry in (read_skills_optional)
+        set -l parsed (parse_skill $entry)
+        if test "$parsed[2]" = local
+            echo $parsed[1]
+        end
+    end
+end
+
 function discover_local_skills
-    # リポジトリ内の SKILL.md を含むディレクトリを検出
+    # リポジトリ内の SKILL.md を含むディレクトリを検出（?<name>@local で任意にしたものは除く）
+    set -l excluded (optional_local_skills)
     for dir in $REPO_DIR/*/
         if test -f $dir/SKILL.md
-            basename $dir
+            set -l name (basename $dir)
+            if not contains -- $name $excluded
+                echo $name
+            end
         end
     end
 end
