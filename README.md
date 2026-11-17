@@ -59,23 +59,34 @@ Claude Code・Codex・GitHub Copilot にグローバルスコープで全スキ�
 > 消費します（一覧はコンテキストウィンドウの約1%が上限で、超えると説明文が
 > 切り詰められスキル選択の精度が落ちます）。
 > そのため 2026-08-02 の棚卸しで、利用実績のないスキルはすべて `?`
-> （個別インストール）へ降格しました。現在の自動インストール対象は
-> ローカルスキル4個 + `skill-creator` のみです。
+> （個別インストール）へ降格しました。さらに 2026-11-17 の棚卸しで
+> `skill-creator` とローカルスキル4個も `?` へ降格し、現在の自動インストール対象は
+> `yomiyasu` と `imozuru` のみです。
 > 見出しに **`?`** が付いたセクションは `gh skill install {リポジトリ} {スキル名}`
 > で個別に導入します。インストール状況は `./setup.fish list` で確認できます。
 
-### ローカルスキル（自動検出）
+### ローカルスキル（自動検出・現在はすべて `?`）
 
-リポジトリ内の `SKILL.md` を含むディレクトリから自動検出される。`skills.conf` への記載不要。
+リポジトリ内の `SKILL.md` を含むディレクトリから自動検出される。`skills.conf` への記載は不要だが、
+`?<name>@local` と書いたものは setup の対象から外れる。個別に入れるときは
+`gh skill install . <name> --from-local --scope user --agent claude-code` を実行する。
 
 | スキル | 説明 |
 |--------|------|
-| [ja-proofreading](./ja-proofreading/SKILL.md) | textlint による日本語文章の自動校正 |
-| [simple](./simple/SKILL.md) | 日本語圧縮出力モード |
-| [gmail-persona](./gmail-persona/SKILL.md) | Gmail 履歴からペルソナ知識ベースを構築し、Q&A・メール下書きに活用 |
-| [md-to-pdf](./md-to-pdf/SKILL.md) | Markdown を pandoc/xelatex/wkhtmltopdf で高品質 PDF・HTML・LaTeX に変換（日本語対応） |
+| `?` [ja-proofreading](./ja-proofreading/SKILL.md) | textlint による日本語文章の自動校正 |
+| `?` [simple](./simple/SKILL.md) | 日本語圧縮出力モード |
+| `?` [gmail-persona](./gmail-persona/SKILL.md) | Gmail 履歴からペルソナ知識ベースを構築し、Q&A・メール下書きに活用 |
+| `?` [md-to-pdf](./md-to-pdf/SKILL.md) | Markdown を pandoc/xelatex/wkhtmltopdf で高品質 PDF・HTML・LaTeX に変換（日本語対応） |
 
-### 外部スキル — Anthropic 公式（`skill-creator` 以外は `?`）
+### 外部スキル — 日本語・調査
+
+| スキル | 説明 |
+|--------|------|
+| [yomiyasu](https://github.com/nanaism/yomiyasu) | AI が生成した日本語を自然な日本語に推敲する |
+| [imozuru](https://github.com/MaryCache/imozuru) | 知らない分野を、原文にたどりつくまで芋づる式に掘る |
+| `?` [last30days](https://github.com/mvanhorn/last30days-skill) | Reddit・X・YouTube・HN などで直近30日の話題を調べてまとめる |
+
+### 外部スキル — Anthropic 公式（すべて `?`）
 
 | スキル | 説明 |
 |--------|------|
@@ -88,7 +99,7 @@ Claude Code・Codex・GitHub Copilot にグローバルスコープで全スキ�
 | `?` [mcp-builder](https://github.com/anthropics/skills/tree/main/skills/mcp-builder) | MCP サーバー開発・構築 |
 | `?` [pdf](https://github.com/anthropics/skills/tree/main/skills/pdf) | PDF ドキュメントの生成・操作 |
 | `?` [pptx](https://github.com/anthropics/skills/tree/main/skills/pptx) | PowerPoint (.pptx) プレゼンテーション生成 |
-| [skill-creator](https://github.com/anthropics/skills/tree/main/skills/skill-creator) | 新スキルの作成・テンプレート活用 |
+| `?` [skill-creator](https://github.com/anthropics/skills/tree/main/skills/skill-creator) | 新スキルの作成・テンプレート活用 |
 | `?` [slack-gif-creator](https://github.com/anthropics/skills/tree/main/skills/slack-gif-creator) | Slack 用 GIF 作成 |
 | `?` [theme-factory](https://github.com/anthropics/skills/tree/main/skills/theme-factory) | テーマ・デザインシステム生成 |
 | `?` [web-artifacts-builder](https://github.com/anthropics/skills/tree/main/skills/web-artifacts-builder) | Web アーティファクト構築 |
